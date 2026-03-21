@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página Pública</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #1877f2; --blue-d: #166fe5; --blue-light: #e7f3ff;
+    --bg: #f0f2f5; --white: #fff;
+    --border: #dddfe2; --text: #1c1e21; --sec: #65676b; --hover: #f2f2f2;
+    --green: #42b72a; --red: #e41e3f;
+    --shadow: 0 1px 2px rgba(0,0,0,.1), 0 4px 16px rgba(0,0,0,.06);
+  }
+  body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* NAV */
+  nav {
+    background: var(--white); border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; padding: 0 16px; height: 56px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08); gap: 10px;
+  }
+  .logo { color: var(--blue); font-size: 28px; font-weight: 900; letter-spacing: -1px; }
+  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .live-badge {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--blue-light); color: var(--blue);
+    border-radius: 20px; padding: 5px 12px; font-size: 13px; font-weight: 700;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
+  .fb-link {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--blue); color: #fff; border-radius: 20px;
+    padding: 5px 14px; font-size: 13px; font-weight: 700;
+    text-decoration: none; transition: background .15s;
+  }
+  .fb-link:hover { background: var(--blue-d); }
+
+  /* COVER */
+  .cover-wrap { background: var(--white); border-bottom: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 16px; }
+  .cover-photo {
+    width: 100%; height: 280px;
+    background: linear-gradient(135deg, #1877f2 0%, #42b0f5 40%, #a259ff 100%);
+    position: relative; overflow: hidden;
+  }
+  .cover-photo::before {
+    content: 'Página Pública';
+    position: absolute; bottom: 20px; left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,.15); font-size: 80px; font-weight: 900;
+    white-space: nowrap; letter-spacing: -2px;
+  }
+  .cover-photo::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.3));
+  }
+  .cover-inner { max-width: 940px; margin: 0 auto; padding: 0 16px; }
+  .profile-row {
+    display: flex; align-items: flex-end; gap: 16px;
+    padding-bottom: 12px; transform: translateY(-20px);
+  }
+  .page-avatar {
+    width: 168px; height: 168px; border-radius: 50%;
+    border: 4px solid var(--white); flex-shrink: 0;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 80px; box-shadow: 0 2px 16px rgba(0,0,0,.2);
+  }
+  .profile-info { flex: 1; padding-bottom: 4px; }
+  .profile-name { font-size: 30px; font-weight: 900; }
+  .profile-sub { color: var(--sec); font-size: 15px; margin-top: 4px; }
+  .profile-actions { display: flex; gap: 8px; padding-bottom: 8px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 6px;
+    font-family: inherit; font-size: 15px; font-weight: 700;
+    cursor: pointer; border: none; transition: background .15s;
+  }
+  .btn-primary { background: var(--blue); color: #fff; }
+  .btn-primary:hover { background: var(--blue-d); }
+  .btn-secondary { background: var(--hover); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { background: #e4e6e9; }
+  .tabs-bar {
+    border-top: 1px solid var(--border); display: flex; gap: 4px; padding: 0 16px;
+    max-width: 940px; margin: 0 auto; overflow-x: auto;
+  }
+  .tab {
+    padding: 12px 16px; font-weight: 700; font-size: 15px;
+    cursor: pointer; border-bottom: 3px solid transparent; color: var(--sec);
+    transition: color .15s; white-space: nowrap; flex-shrink: 0;
+  }
+  .tab.active { color: var(--blue); border-color: var(--blue); }
+
+  /* MAIN */
+  .main { max-width: 680px; margin: 0 auto 32px; padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
+
+  /* POST BOX */
+  .post-box { background: var(--white); border-radius: 8px; box-shadow: var(--shadow); padding: 12px 16px; }
+  .post-box-top { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .mini-av {
+    width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center; font-size: 22px;
+  }
+  .trigger {
+    flex: 1; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 20px; padding: 10px 16px; cursor: pointer;
+    color: var(--sec); font-family: inherit; font-size: 16px;
+    transition: background .15s; text-align: left;
+  }
+  .trigger:hover { background: #e4e6e9; }
+  hr.divider { border: none; border-top: 1px solid var(--border); margin: 8px 0; }
+  .post-actions { display: flex; gap: 4px; }
+  .act-btn {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 8px; border-radius: 6px; cursor: pointer;
+    font-family: inherit; font-size: 14px; font-weight: 700;
+    color: var(--sec); background: none; border: none; transition: background .15s;
+  }
+  .act-btn:hover { background: var(--hover); }
+
+  /* MODAL */
+  .overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,.55); z-index: 200;
+    align-items: center; justify-content: center; padding: 16px;
+  }
+  .overlay.open { display: flex; }
+  .modal {
+    background: var(--white); border-radius: 12px;
+    width: 100%; max-width: 500px;
+    box-shadow: 0 8px 40px rgba(0,0,0,.25);
+    animation: pop .18s ease;
+  }
+  @keyframes pop { from{transform:scale(.93);opacity:0}to{transform:scale(1);opacity:1} }
+  .modal-head {
+    display: flex; align-items: center; justify-content: center;
+    padding: 14px 16px; border-bottom: 1px solid var(--border); position: relative;
+  }
+  .modal-head h2 { font-size: 20px; font-weight: 800; }
+  .modal-close {
+    position: absolute; right: 14px; background: var(--bg); border: none;
+    border-radius: 50%; width: 36px; height: 36px; font-size: 20px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background .15s;
+  }
+  .modal-close:hover { background: #e4e6e9; }
+  .modal-body { padding: 16px; }
+  .modal-user { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .modal-user .mini-av { width: 44px; height: 44px; font-size: 24px; }
+  .modal-name { font-weight: 700; font-size: 15px; }
+  .modal-badge {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+    padding: 2px 8px; font-size: 12px; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 4px; margin-top: 3px;
+  }
+  textarea.post-ta {
+    width: 100%; min-height: 130px; border: none; outline: none; resize: none;
+    font-family: inherit; font-size: 22px; color: var(--text);
+    background: transparent; line-height: 1.4;
+  }
+  textarea.post-ta::placeholder { color: #bcc0c4; }
+  .char-count { text-align: right; font-size: 12px; color: var(--sec); margin-top: 4px; }
+  .modal-footer { padding: 0 16px 16px; }
+  .btn-post {
+    width: 100%; padding: 10px; border-radius: 6px;
+    background: var(--blue); color: #fff; border: none;
+    font-family: inherit; font-size: 16px; font-weight: 800; cursor: pointer;
+    transition: background .15s, opacity .15s; opacity: .45; pointer-events: none;
+  }
+  .btn-post.active { opacity: 1; pointer-events: all; }
+  .btn-post.active:hover { background: var(--blue-d); }
+  .btn-post.loading { opacity: .7; pointer-events: none; }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: #1c1e21; color: #fff; padding: 12px 24px; border-radius: 8px;
+    font-weight: 700; font-size: 15px; z-index: 300;
+    transition: transform .3s ease; white-space: nowrap;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.success { background: var(--green); }
+  .toast.error { background: var(--red); }
+
+  /* INFO CARD */
+  .info-card {
+    background: var(--blue-light); border: 1.5px solid #b3d0f7;
+    border-radius: 8px; padding: 14px 16px;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .info-card .icon { font-size: 22px; flex-shrink: 0; }
+  .info-card p { font-size: 14px; line-height: 1.5; color: #0a3d6e; }
+  .info-card strong { font-weight: 800; }
+  .info-card a { color: var(--blue); font-weight: 700; }
+
+  @media (max-width: 600px) {
+    .page-avatar { width: 100px; height: 100px; font-size: 48px; }
+    .profile-name { font-size: 22px; }
+    .cover-photo { height: 180px; }
+    .profile-row { transform: translateY(-10px); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="logo">facebook</span>
+  <div class="nav-right">
+    <div class="live-badge"><span class="dot"></span> Ao vivo</div>
+    <a class="fb-link" href="https://www.facebook.com/profile.php?id=1030632680135061" target="_blank">📘 Ver no Facebook</a>
+  </div>
+</nav>
+
+<div class="cover-wrap">
+  <div class="cover-photo"></div>
+  <div class="cover-inner">
+    <div class="profile-row">
+      <div class="page-avatar">📢</div>
+      <div class="profile-info">
+        <div class="profile-name">Pagina publica</div>
+        <div class="profile-sub">📌 Site de entretenimento · Página pública</div>
+      </div>
+      <div class="profile-actions">
+        <button class="btn btn-primary" onclick="openModal()">✏️ Criar publicação</button>
+        <a class="btn btn-secondary" href="https://www.facebook.com/profile.php?id=1030632680135061" target="_blank">📘 Abrir no Facebook</a>
+      </div>
+    </div>
+    <div class="tabs-bar">
+      <div class="tab active">Publicações</div>
+      <div class="tab">Sobre</div>
+      <div class="tab">Fotos</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- INFO -->
+  <div class="info-card">
+    <span class="icon">📢</span>
+    <p>Qualquer pessoa pode publicar nesta página! O que você escrever aqui vai aparecer <strong>diretamente na Página do Facebook</strong> para todos os seguidores verem. <a href="https://www.facebook.com/profile.php?id=1030632680135061" target="_blank">Ver página no Facebook →</a></p>
+  </div>
+
+  <!-- CRIAR POST -->
+  <div class="post-box">
+    <div class="post-box-top">
+      <div class="mini-av">📢</div>
+      <button class="trigger" onclick="openModal()">No que você está pensando?</button>
+    </div>
+    <hr class="divider">
+    <div class="post-actions">
+      <button class="act-btn" onclick="openModal()">📹 Vídeo ao vivo</button>
+      <button class="act-btn" onclick="openModal()">🖼️ Foto/vídeo</button>
+      <button class="act-btn" onclick="openModal()">😊 Sentimento</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeIfBg(event)">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Criar publicação</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-user">
+        <div class="mini-av" style="width:44px;height:44px;font-size:24px">📢</div>
+        <div>
+          <div class="modal-name">Pagina publica</div>
+          <div class="modal-badge">🌍 Público</div>
+        </div>
+      </div>
+      <textarea class="post-ta" id="postText" placeholder="No que você está pensando?" oninput="onInput()" maxlength="63206"></textarea>
+      <div class="char-count" id="charCount">0 / 63206</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-post" id="postBtn" onclick="publish()">Publicar no Facebook</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  const PAGE_TOKEN = 'EAAWCZAHwNM8EBRNtgy48OsNYl9XvmeZB7MBOrBLF9nn2xkYlZAXeJTRqXG3yMH0eaQ7xqJfW9rdgFgVmd8yBkIfrw1iAWvA7VEuHHg67rud1h6witXvsJVF5e3fCXEfBtSOw2GPqG0Qf6BZA9hTZAqYm3kSjShPdNpcTAEgVtUQZBWRQtnkohyi5DaUI2mUVAy5moT6bxo4tunrZCEj0bJohEUGHqOgFeOIvtug8pAZD';
+  const PAGE_ID = '1030632680135061';
+
+  function openModal() {
+    document.getElementById('overlay').classList.add('open');
+    document.getElementById('postText').focus();
+  }
+  function closeModal() {
+    document.getElementById('overlay').classList.remove('open');
+    document.getElementById('postText').value = '';
+    document.getElementById('charCount').textContent = '0 / 63206';
+    document.getElementById('postBtn').classList.remove('active');
+  }
+  function closeIfBg(e) { if (e.target === document.getElementById('overlay')) closeModal(); }
+
+  function onInput() {
+    const t = document.getElementById('postText').value;
+    document.getElementById('charCount').textContent = `${t.length} / 63206`;
+    document.getElementById('postBtn').classList.toggle('active', t.trim().length > 0);
+  }
+
+  function showToast(msg, type='') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = `toast ${type} show`;
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  async function publish() {
+    const text = document.getElementById('postText').value.trim();
+    if (!text) return;
+
+    const btn = document.getElementById('postBtn');
+    btn.classList.add('loading');
+    btn.textContent = 'Publicando...';
+
+    try {
+      const res = await fetch(`https://graph.facebook.com/v25.0/${PAGE_ID}/feed`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, access_token: PAGE_TOKEN })
+      });
+      const data = await res.json();
+
+      if (data.id) {
+        showToast('✅ Publicado no Facebook!', 'success');
+        closeModal();
+      } else {
+        console.error(data);
+        showToast('❌ Erro: ' + (data.error?.message || 'Tente novamente'), 'error');
+      }
+    } catch(e) {
+      showToast('❌ Erro de conexão. Tente novamente.', 'error');
+    }
+
+    btn.classList.remove('loading');
+    btn.textContent = 'Publicar no Facebook';
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
