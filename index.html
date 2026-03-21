@@ -218,7 +218,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  const PAGE_TOKEN = 'EAASscq5LZBrEBRPDhxw85XFW0KVZCQscSQvKbHsueZCjOdCYJZCbpx3do55VkLfcnNzqqk0IiSHoefRrDcttqZC8Ispr4XvGhSBVuZAuBp8zSJahhpok8nq0GsaqLiPiZCZBUlNoWiVZCH7sGZCkSioNLntbWE9b5QAbUIuPHyLl8ixiuOEjL1UW596gddYjOF3oN7HfZAVa4lv2xAiR7dq1wjbFBck4TdCIPwWlZBrubkjOC9ao0ffFF7fymJt7e7EewJX1vCcEdcTDgogan2cZD';
+  const PAGE_TOKEN = 'EAASscq5LZBrEBRKPmu7hUZAZAv1q7FC2nNDeSydtdXKZCMELPo1rV2y0XZAZCRmSZBqjls2n8ZC3YSylK9Akcsc8ZAZBrwbEVupAYXfEPrE4DjGZBjKTTHH00zFp0s0nVtOKvADu3uGLZCiLu0kQIr0nH8F7JJUiTdgSYQctfPVzMHWE7AnQlHPNaCxEWcb82T3kKfVaW7SqjFPkMy8u5E3EmsBIo9vAUkZAkv1kZASPnkw1hSZBTI8IOI97XcOouPBg4NRWdDk12aIZATqpR7ZChFUr4cozKp4o6';
   const PAGE_ID = '1030632680135061';
   const SITE_LINK = '\n\n📢 Esta é uma página pública, para compartilhar sua postagem aqui acesse https://wonderful-macaron-936e48.netlify.app';
   const API = 'https://graph.facebook.com/v25.0';
@@ -230,7 +230,7 @@
   // ── FEED ──
   async function loadFeed(after = null) {
     try {
-      let url = `${API}/${PAGE_ID}/feed?fields=id,message,created_time,attachments,comments.limit(3){id,message,created_time,from},likes.summary(true)&limit=10&access_token=${PAGE_TOKEN}`;
+      let url = `${API}/${PAGE_ID}/feed?fields=id,message,created_time,attachments,likes.summary(true)&limit=10&access_token=${PAGE_TOKEN}`;
       if (after) url += `&after=${after}`;
       const res = await fetch(url);
       const data = await res.json();
