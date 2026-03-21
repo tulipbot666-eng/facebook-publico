@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Página Pública</title>
+<title>Pagina Publica</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,190 +15,106 @@
     --shadow: 0 1px 2px rgba(0,0,0,.1), 0 4px 16px rgba(0,0,0,.06);
   }
   body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-
-  /* NAV */
-  nav {
-    background: var(--white); border-bottom: 1px solid var(--border);
-    position: sticky; top: 0; z-index: 100;
-    display: flex; align-items: center; padding: 0 16px; height: 56px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.08); gap: 10px;
-  }
+  nav { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; padding: 0 16px; height: 56px; box-shadow: 0 2px 8px rgba(0,0,0,.08); gap: 10px; }
   .logo { color: var(--blue); font-size: 28px; font-weight: 900; letter-spacing: -1px; }
   .nav-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
-  .live-badge {
-    display: flex; align-items: center; gap: 6px;
-    background: var(--blue-light); color: var(--blue);
-    border-radius: 20px; padding: 5px 12px; font-size: 13px; font-weight: 700;
-  }
+  .live-badge { display: flex; align-items: center; gap: 6px; background: var(--blue-light); color: var(--blue); border-radius: 20px; padding: 5px 12px; font-size: 13px; font-weight: 700; }
   .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
-  .fb-link {
-    display: flex; align-items: center; gap: 6px;
-    background: var(--blue); color: #fff; border-radius: 20px;
-    padding: 5px 14px; font-size: 13px; font-weight: 700;
-    text-decoration: none; transition: background .15s;
-  }
+  .fb-link { display: flex; align-items: center; gap: 6px; background: var(--blue); color: #fff; border-radius: 20px; padding: 5px 14px; font-size: 13px; font-weight: 700; text-decoration: none; transition: background .15s; }
   .fb-link:hover { background: var(--blue-d); }
-
-  /* COVER */
   .cover-wrap { background: var(--white); border-bottom: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 16px; }
-  .cover-photo {
-    width: 100%; height: 280px;
-    background: linear-gradient(135deg, #1877f2 0%, #42b0f5 40%, #a259ff 100%);
-    position: relative; overflow: hidden;
-  }
-  .cover-photo::before {
-    content: 'Página Pública';
-    position: absolute; bottom: 20px; left: 50%;
-    transform: translateX(-50%);
-    color: rgba(255,255,255,.15); font-size: 80px; font-weight: 900;
-    white-space: nowrap; letter-spacing: -2px;
-  }
-  .cover-photo::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.3));
-  }
+  .cover-photo { width: 100%; height: 280px; background: linear-gradient(135deg, #1877f2 0%, #42b0f5 40%, #a259ff 100%); position: relative; overflow: hidden; }
+  .cover-photo::before { content: 'Página Pública'; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.12); font-size: 80px; font-weight: 900; white-space: nowrap; letter-spacing: -2px; }
+  .cover-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.3)); }
   .cover-inner { max-width: 940px; margin: 0 auto; padding: 0 16px; }
-  .profile-row {
-    display: flex; align-items: flex-end; gap: 16px;
-    padding-bottom: 12px; transform: translateY(-20px);
-  }
-  .page-avatar {
-    width: 168px; height: 168px; border-radius: 50%;
-    border: 4px solid var(--white); flex-shrink: 0;
-    background: var(--blue);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 80px; box-shadow: 0 2px 16px rgba(0,0,0,.2);
-  }
-  .profile-info { flex: 1; padding-bottom: 4px; }
+  .profile-row { display: flex; align-items: flex-end; gap: 16px; padding-bottom: 12px; transform: translateY(-20px); flex-wrap: wrap; }
+  .page-avatar { width: 168px; height: 168px; border-radius: 50%; border: 4px solid var(--white); flex-shrink: 0; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 80px; box-shadow: 0 2px 16px rgba(0,0,0,.2); }
+  .profile-info { flex: 1; padding-bottom: 4px; min-width: 200px; }
   .profile-name { font-size: 30px; font-weight: 900; }
   .profile-sub { color: var(--sec); font-size: 15px; margin-top: 4px; }
   .profile-actions { display: flex; gap: 8px; padding-bottom: 8px; flex-wrap: wrap; }
-  .btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 8px 16px; border-radius: 6px;
-    font-family: inherit; font-size: 15px; font-weight: 700;
-    cursor: pointer; border: none; transition: background .15s;
-  }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 6px; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; border: none; transition: background .15s; }
   .btn-primary { background: var(--blue); color: #fff; }
   .btn-primary:hover { background: var(--blue-d); }
   .btn-secondary { background: var(--hover); color: var(--text); border: 1px solid var(--border); }
   .btn-secondary:hover { background: #e4e6e9; }
-  .tabs-bar {
-    border-top: 1px solid var(--border); display: flex; gap: 4px; padding: 0 16px;
-    max-width: 940px; margin: 0 auto; overflow-x: auto;
-  }
-  .tab {
-    padding: 12px 16px; font-weight: 700; font-size: 15px;
-    cursor: pointer; border-bottom: 3px solid transparent; color: var(--sec);
-    transition: color .15s; white-space: nowrap; flex-shrink: 0;
-  }
+  .tabs-bar { border-top: 1px solid var(--border); display: flex; gap: 4px; padding: 0 16px; max-width: 940px; margin: 0 auto; overflow-x: auto; }
+  .tab { padding: 12px 16px; font-weight: 700; font-size: 15px; cursor: pointer; border-bottom: 3px solid transparent; color: var(--sec); transition: color .15s; white-space: nowrap; flex-shrink: 0; }
   .tab.active { color: var(--blue); border-color: var(--blue); }
-
-  /* MAIN */
   .main { max-width: 680px; margin: 0 auto 32px; padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
-
-  /* POST BOX */
   .post-box { background: var(--white); border-radius: 8px; box-shadow: var(--shadow); padding: 12px 16px; }
   .post-box-top { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
-  .mini-av {
-    width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
-    background: var(--blue);
-    display: flex; align-items: center; justify-content: center; font-size: 22px;
-  }
-  .trigger {
-    flex: 1; background: var(--bg); border: 1px solid var(--border);
-    border-radius: 20px; padding: 10px 16px; cursor: pointer;
-    color: var(--sec); font-family: inherit; font-size: 16px;
-    transition: background .15s; text-align: left;
-  }
+  .mini-av { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 22px; }
+  .trigger { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 10px 16px; cursor: pointer; color: var(--sec); font-family: inherit; font-size: 16px; transition: background .15s; text-align: left; }
   .trigger:hover { background: #e4e6e9; }
   hr.divider { border: none; border-top: 1px solid var(--border); margin: 8px 0; }
   .post-actions { display: flex; gap: 4px; }
-  .act-btn {
-    flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
-    padding: 8px; border-radius: 6px; cursor: pointer;
-    font-family: inherit; font-size: 14px; font-weight: 700;
-    color: var(--sec); background: none; border: none; transition: background .15s;
-  }
+  .act-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700; color: var(--sec); background: none; border: none; transition: background .15s; }
   .act-btn:hover { background: var(--hover); }
-
-  /* MODAL */
-  .overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,.55); z-index: 200;
-    align-items: center; justify-content: center; padding: 16px;
-  }
+  .feed-loading { text-align: center; padding: 32px; color: var(--sec); font-size: 15px; }
+  .spinner { display: inline-block; width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--blue); border-radius: 50%; animation: spin .7s linear infinite; margin-bottom: 8px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .post-card { background: var(--white); border-radius: 8px; box-shadow: var(--shadow); overflow: hidden; animation: fadeIn .3s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)} }
+  .post-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px 8px; }
+  .post-av { width: 40px; height: 40px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .post-meta { flex: 1; }
+  .post-author { font-weight: 700; font-size: 15px; }
+  .post-time { color: var(--sec); font-size: 13px; }
+  .post-body { padding: 0 16px 12px; font-size: 16px; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+  .post-img { width: 100%; max-height: 500px; object-fit: cover; display: block; cursor: pointer; }
+  .post-video { width: 100%; max-height: 400px; display: block; background: #000; }
+  .post-stats { display: flex; justify-content: space-between; padding: 6px 16px; color: var(--sec); font-size: 14px; border-top: 1px solid var(--border); }
+  .post-bar { display: flex; border-top: 1px solid var(--border); }
+  .bar-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px; background: none; border: none; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 700; color: var(--sec); transition: background .15s; }
+  .bar-btn:hover { background: var(--hover); }
+  .bar-btn.liked { color: var(--blue); }
+  .comments-wrap { padding: 0 16px 12px; }
+  .comment-input-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+  .comment-mini-av { width: 32px; height: 32px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .comment-input { flex: 1; background: var(--bg); border: none; border-radius: 20px; padding: 8px 14px; font-family: inherit; font-size: 14px; outline: none; }
+  .comment-send { background: none; border: none; cursor: pointer; font-size: 18px; color: var(--blue); padding: 4px; }
+  .comment-item { display: flex; gap: 8px; margin-bottom: 8px; }
+  .comment-bubble { background: var(--bg); border-radius: 18px; padding: 8px 12px; flex: 1; }
+  .comment-name { font-weight: 700; font-size: 13px; }
+  .comment-text { font-size: 14px; }
+  .comment-time { font-size: 12px; color: var(--sec); margin-top: 2px; }
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 200; align-items: center; justify-content: center; padding: 16px; }
   .overlay.open { display: flex; }
-  .modal {
-    background: var(--white); border-radius: 12px;
-    width: 100%; max-width: 500px;
-    box-shadow: 0 8px 40px rgba(0,0,0,.25);
-    animation: pop .18s ease;
-  }
+  .modal { background: var(--white); border-radius: 12px; width: 100%; max-width: 500px; box-shadow: 0 8px 40px rgba(0,0,0,.25); animation: pop .18s ease; }
   @keyframes pop { from{transform:scale(.93);opacity:0}to{transform:scale(1);opacity:1} }
-  .modal-head {
-    display: flex; align-items: center; justify-content: center;
-    padding: 14px 16px; border-bottom: 1px solid var(--border); position: relative;
-  }
+  .modal-head { display: flex; align-items: center; justify-content: center; padding: 14px 16px; border-bottom: 1px solid var(--border); position: relative; }
   .modal-head h2 { font-size: 20px; font-weight: 800; }
-  .modal-close {
-    position: absolute; right: 14px; background: var(--bg); border: none;
-    border-radius: 50%; width: 36px; height: 36px; font-size: 20px;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: background .15s;
-  }
+  .modal-close { position: absolute; right: 14px; background: var(--bg); border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .15s; }
   .modal-close:hover { background: #e4e6e9; }
   .modal-body { padding: 16px; }
   .modal-user { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
   .modal-user .mini-av { width: 44px; height: 44px; font-size: 24px; }
   .modal-name { font-weight: 700; font-size: 15px; }
-  .modal-badge {
-    background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
-    padding: 2px 8px; font-size: 12px; font-weight: 700;
-    display: inline-flex; align-items: center; gap: 4px; margin-top: 3px;
-  }
-  textarea.post-ta {
-    width: 100%; min-height: 130px; border: none; outline: none; resize: none;
-    font-family: inherit; font-size: 22px; color: var(--text);
-    background: transparent; line-height: 1.4;
-  }
+  .modal-badge { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 2px 8px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; margin-top: 3px; }
+  textarea.post-ta { width: 100%; min-height: 100px; border: none; outline: none; resize: none; font-family: inherit; font-size: 20px; color: var(--text); background: transparent; line-height: 1.4; }
   textarea.post-ta::placeholder { color: #bcc0c4; }
   .char-count { text-align: right; font-size: 12px; color: var(--sec); margin-top: 4px; }
+  .media-area { border: 2px dashed var(--border); border-radius: 10px; margin: 10px 0; padding: 16px; text-align: center; cursor: pointer; transition: border-color .15s,background .15s; position: relative; }
+  .media-area:hover { border-color: var(--blue); background: var(--blue-light); }
+  .media-area input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .media-icon { font-size: 32px; margin-bottom: 6px; }
+  .media-area p { font-size: 14px; color: var(--sec); font-weight: 600; }
+  .media-area small { font-size: 12px; color: #bcc0c4; }
+  .media-preview { margin: 10px 0; border-radius: 8px; overflow: hidden; position: relative; }
+  .media-preview img, .media-preview video { width: 100%; max-height: 250px; object-fit: cover; border-radius: 8px; display: block; }
+  .remove-media { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,.6); color: #fff; border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
   .modal-footer { padding: 0 16px 16px; }
-  .btn-post {
-    width: 100%; padding: 10px; border-radius: 6px;
-    background: var(--blue); color: #fff; border: none;
-    font-family: inherit; font-size: 16px; font-weight: 800; cursor: pointer;
-    transition: background .15s, opacity .15s; opacity: .45; pointer-events: none;
-  }
+  .btn-post { width: 100%; padding: 10px; border-radius: 6px; background: var(--blue); color: #fff; border: none; font-family: inherit; font-size: 16px; font-weight: 800; cursor: pointer; transition: background .15s, opacity .15s; opacity: .45; pointer-events: none; }
   .btn-post.active { opacity: 1; pointer-events: all; }
   .btn-post.active:hover { background: var(--blue-d); }
   .btn-post.loading { opacity: .7; pointer-events: none; }
-
-  /* TOAST */
-  .toast {
-    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
-    background: #1c1e21; color: #fff; padding: 12px 24px; border-radius: 8px;
-    font-weight: 700; font-size: 15px; z-index: 300;
-    transition: transform .3s ease; white-space: nowrap;
-    display: flex; align-items: center; gap: 8px;
-  }
+  .progress-bar { width: 0%; height: 4px; background: var(--blue); border-radius: 2px; margin-top: 8px; transition: width .3s; }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1c1e21; color: #fff; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 15px; z-index: 300; transition: transform .3s ease; white-space: nowrap; }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.success { background: var(--green); }
   .toast.error { background: var(--red); }
-
-  /* INFO CARD */
-  .info-card {
-    background: var(--blue-light); border: 1.5px solid #b3d0f7;
-    border-radius: 8px; padding: 14px 16px;
-    display: flex; gap: 12px; align-items: flex-start;
-  }
-  .info-card .icon { font-size: 22px; flex-shrink: 0; }
-  .info-card p { font-size: 14px; line-height: 1.5; color: #0a3d6e; }
-  .info-card strong { font-weight: 800; }
-  .info-card a { color: var(--blue); font-weight: 700; }
-
   @media (max-width: 600px) {
     .page-avatar { width: 100px; height: 100px; font-size: 48px; }
     .profile-name { font-size: 22px; }
@@ -228,7 +144,7 @@
       </div>
       <div class="profile-actions">
         <button class="btn btn-primary" onclick="openModal()">✏️ Criar publicação</button>
-        <a class="btn btn-secondary" href="https://www.facebook.com/profile.php?id=1030632680135061" target="_blank">📘 Abrir no Facebook</a>
+        <a class="btn btn-secondary" href="https://www.facebook.com/profile.php?id=1030632680135061" target="_blank">📘 Facebook</a>
       </div>
     </div>
     <div class="tabs-bar">
@@ -240,14 +156,6 @@
 </div>
 
 <div class="main">
-
-  <!-- INFO -->
-  <div class="info-card">
-    <span class="icon">📢</span>
-    <p>Qualquer pessoa pode publicar nesta página! O que você escrever aqui vai aparecer <strong>diretamente na Página do Facebook</strong> para todos os seguidores verem. <a href="https://www.facebook.com/profile.php?id=1030632680135061" target="_blank">Ver página no Facebook →</a></p>
-  </div>
-
-  <!-- CRIAR POST -->
   <div class="post-box">
     <div class="post-box-top">
       <div class="mini-av">📢</div>
@@ -255,15 +163,24 @@
     </div>
     <hr class="divider">
     <div class="post-actions">
-      <button class="act-btn" onclick="openModal()">📹 Vídeo ao vivo</button>
-      <button class="act-btn" onclick="openModal()">🖼️ Foto/vídeo</button>
+      <button class="act-btn" onclick="openModal()">📹 Vídeo</button>
+      <button class="act-btn" onclick="openModal()">🖼️ Foto</button>
       <button class="act-btn" onclick="openModal()">😊 Sentimento</button>
     </div>
   </div>
 
+  <div id="feed">
+    <div class="feed-loading">
+      <div class="spinner"></div>
+      <div>Carregando publicações...</div>
+    </div>
+  </div>
+
+  <div id="loadMoreWrap" style="display:none;text-align:center;padding:8px">
+    <button class="btn btn-secondary" onclick="loadMore()">Carregar mais publicações</button>
+  </div>
 </div>
 
-<!-- MODAL -->
 <div class="overlay" id="overlay" onclick="closeIfBg(event)">
   <div class="modal">
     <div class="modal-head">
@@ -280,8 +197,6 @@
       </div>
       <textarea class="post-ta" id="postText" placeholder="No que você está pensando?" oninput="onInput()" maxlength="63206"></textarea>
       <div class="char-count" id="charCount">0 / 63206</div>
-
-      <!-- MEDIA UPLOAD -->
       <div class="media-area" id="mediaArea">
         <input type="file" id="fileInput" accept="image/*,video/*" onchange="onFileSelect(event)">
         <div class="media-icon">🖼️</div>
@@ -300,144 +215,201 @@
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
   const PAGE_TOKEN = 'EAASscq5LZBrEBRO8EbKLgi8V9aBaTlc4pHn6hnEIOJTqVvtGdUKwuQo12BD9KAuL4yetWWlDNnBvPJmiOe5eMVNKLMigD8nf0KVebUyV2feFAEvPuM59YQuzJBQyZBqn91okGVRAi1A3zdc0D34q6RrXi1ZCE5EBxhWXDIgYya3v7Fe0hNkr4ybd3R0xoZC00NEePZC3RebMNswKPk7YHAZCCBLPQCg2wMVwAMCvWNNR0ZD';
   const PAGE_ID = '1030632680135061';
+  const SITE_LINK = '\n\n📢 Esta é uma página pública, para compartilhar sua postagem aqui acesse https://wonderful-macaron-936e48.netlify.app';
+  const API = 'https://graph.facebook.com/v25.0';
+  let nextCursor = null;
   let selectedFile = null;
+  let likedPosts = {};
+  try { likedPosts = JSON.parse(localStorage.getItem('liked') || '{}'); } catch(e) {}
 
-  function openModal() {
-    document.getElementById('overlay').classList.add('open');
-    document.getElementById('postText').focus();
+  // ── FEED ──
+  async function loadFeed(after = null) {
+    try {
+      let url = `${API}/${PAGE_ID}/feed?fields=id,message,created_time,attachments,comments.limit(3){id,message,created_time,from},likes.summary(true)&limit=10&access_token=${PAGE_TOKEN}`;
+      if (after) url += `&after=${after}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data.error) { document.getElementById('feed').innerHTML = `<div class="feed-loading">⚠️ ${data.error.message}</div>`; return; }
+      renderFeed(data.data, !!after);
+      nextCursor = data.paging?.cursors?.after || null;
+      document.getElementById('loadMoreWrap').style.display = nextCursor ? 'block' : 'none';
+    } catch(e) {
+      document.getElementById('feed').innerHTML = '<div class="feed-loading">❌ Erro ao carregar publicações.</div>';
+    }
   }
-  function closeModal() {
-    document.getElementById('overlay').classList.remove('open');
-    document.getElementById('postText').value = '';
-    document.getElementById('charCount').textContent = '0 / 63206';
-    document.getElementById('postBtn').classList.remove('active');
-    removeMedia();
+
+  function loadMore() { if (nextCursor) loadFeed(nextCursor); }
+
+  function timeAgo(d) {
+    const s = (Date.now() - new Date(d)) / 1000;
+    if (s < 60) return 'agora mesmo';
+    if (s < 3600) return `${Math.floor(s/60)} min`;
+    if (s < 86400) return `${Math.floor(s/3600)}h`;
+    if (s < 604800) return `${Math.floor(s/86400)}d`;
+    return new Date(d).toLocaleDateString('pt-BR');
   }
+
+  function renderFeed(posts, append) {
+    const feed = document.getElementById('feed');
+    if (!append) feed.innerHTML = '';
+    if (!posts.length && !append) {
+      feed.innerHTML = '<div class="feed-loading">📭 Nenhuma publicação ainda. Seja o primeiro!</div>';
+      return;
+    }
+    posts.forEach(p => {
+      const el = document.createElement('div');
+      el.className = 'post-card';
+      el.id = `post-${p.id}`;
+      const att = p.attachments?.data?.[0];
+      let media = '';
+      if (att?.type === 'photo' && att.media?.image?.src)
+        media = `<img class="post-img" src="${att.media.image.src}" onclick="window.open('${att.media.image.src}','_blank')">`;
+      else if ((att?.type === 'video_inline' || att?.type === 'video_autoplay') && att.media?.source)
+        media = `<video class="post-video" controls src="${att.media.source}"></video>`;
+      const likes = p.likes?.summary?.total_count || 0;
+      const ccount = p.comments?.data?.length || 0;
+      const liked = likedPosts[p.id] || false;
+      const cmtsHtml = (p.comments?.data || []).map(c => `
+        <div class="comment-item">
+          <div class="comment-mini-av">📢</div>
+          <div class="comment-bubble">
+            <div class="comment-name">${c.from?.name || 'Pagina publica'}</div>
+            <div class="comment-text">${esc(c.message)}</div>
+            <div class="comment-time">${timeAgo(c.created_time)}</div>
+          </div>
+        </div>`).join('');
+      el.innerHTML = `
+        <div class="post-header">
+          <div class="post-av">📢</div>
+          <div class="post-meta">
+            <div class="post-author">Pagina publica</div>
+            <div class="post-time">🌍 ${timeAgo(p.created_time)}</div>
+          </div>
+        </div>
+        ${p.message ? `<div class="post-body">${esc(p.message)}</div>` : ''}
+        ${media}
+        ${(likes > 0 || ccount > 0) ? `<div class="post-stats"><span>${likes > 0 ? '👍 ' + likes : ''}</span><span>${ccount > 0 ? ccount + ' comentário' + (ccount !== 1 ? 's' : '') : ''}</span></div>` : ''}
+        <div class="post-bar">
+          <button class="bar-btn ${liked ? 'liked' : ''}" onclick="toggleLike('${p.id}',this)">👍 Curtir</button>
+          <button class="bar-btn" onclick="toggleCmts('${p.id}')">💬 Comentar</button>
+          <button class="bar-btn" onclick="sharePost('${p.id}')">↗️ Compartilhar</button>
+        </div>
+        <div class="comments-wrap" id="cmts-${p.id}" style="display:none">
+          <div id="clist-${p.id}">${cmtsHtml}</div>
+          <div class="comment-input-row">
+            <div class="comment-mini-av">📢</div>
+            <input class="comment-input" id="cinput-${p.id}" placeholder="Escreva um comentário..." onkeydown="cKey(event,'${p.id}')">
+            <button class="comment-send" onclick="sendCmt('${p.id}')">➤</button>
+          </div>
+        </div>`;
+      feed.appendChild(el);
+    });
+  }
+
+  async function toggleLike(id, btn) {
+    const liked = likedPosts[id];
+    try {
+      await fetch(`${API}/${id}/likes?access_token=${PAGE_TOKEN}`, { method: liked ? 'DELETE' : 'POST' });
+      likedPosts[id] = !liked;
+      try { localStorage.setItem('liked', JSON.stringify(likedPosts)); } catch(e) {}
+      btn.classList.toggle('liked', !liked);
+      showToast(liked ? 'Curtida removida' : '👍 Curtido!', 'success');
+    } catch(e) { showToast('❌ Erro ao curtir', 'error'); }
+  }
+
+  function toggleCmts(id) {
+    const el = document.getElementById(`cmts-${id}`);
+    el.style.display = el.style.display === 'none' ? 'block' : 'none';
+    if (el.style.display === 'block') document.getElementById(`cinput-${id}`)?.focus();
+  }
+
+  function cKey(e, id) { if (e.key === 'Enter') sendCmt(id); }
+
+  async function sendCmt(id) {
+    const inp = document.getElementById(`cinput-${id}`);
+    const msg = inp?.value.trim();
+    if (!msg) return;
+    inp.value = '';
+    try {
+      const res = await fetch(`${API}/${id}/comments`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: msg, access_token: PAGE_TOKEN })
+      });
+      const data = await res.json();
+      if (data.id) {
+        const div = document.createElement('div');
+        div.className = 'comment-item';
+        div.innerHTML = `<div class="comment-mini-av">📢</div><div class="comment-bubble"><div class="comment-name">Pagina publica</div><div class="comment-text">${esc(msg)}</div><div class="comment-time">agora mesmo</div></div>`;
+        document.getElementById(`clist-${id}`).appendChild(div);
+        showToast('💬 Comentário publicado!', 'success');
+      } else {
+        showToast('❌ ' + (data.error?.message || 'Erro'), 'error');
+        inp.value = msg;
+      }
+    } catch(e) { showToast('❌ Erro de conexão', 'error'); inp.value = msg; }
+  }
+
+  function sharePost(id) {
+    const url = `https://www.facebook.com/${id}`;
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank', 'width=600,height=400');
+  }
+
+  // ── MODAL ──
+  function openModal() { document.getElementById('overlay').classList.add('open'); document.getElementById('postText').focus(); }
+  function closeModal() { document.getElementById('overlay').classList.remove('open'); document.getElementById('postText').value = ''; document.getElementById('charCount').textContent = '0 / 63206'; document.getElementById('postBtn').classList.remove('active'); removeMedia(); }
   function closeIfBg(e) { if (e.target === document.getElementById('overlay')) closeModal(); }
-
-  function onInput() {
-    const t = document.getElementById('postText').value;
-    document.getElementById('charCount').textContent = `${t.length} / 63206`;
-    checkCanPost();
-  }
-
-  function checkCanPost() {
-    const t = document.getElementById('postText').value.trim();
-    document.getElementById('postBtn').classList.toggle('active', t.length > 0 || selectedFile !== null);
-  }
-
+  function onInput() { const t = document.getElementById('postText').value; document.getElementById('charCount').textContent = `${t.length} / 63206`; checkPost(); }
+  function checkPost() { const t = document.getElementById('postText').value.trim(); document.getElementById('postBtn').classList.toggle('active', t.length > 0 || !!selectedFile); }
   function onFileSelect(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-    selectedFile = file;
-    const isVideo = file.type.startsWith('video/');
-    const url = URL.createObjectURL(file);
-    const preview = document.getElementById('previewContent');
-    preview.innerHTML = isVideo
-      ? `<video src="${url}" controls></video>`
-      : `<img src="${url}" alt="preview">`;
+    const f = e.target.files[0]; if (!f) return;
+    selectedFile = f;
+    const url = URL.createObjectURL(f);
+    document.getElementById('previewContent').innerHTML = f.type.startsWith('video/') ? `<video src="${url}" controls></video>` : `<img src="${url}">`;
     document.getElementById('mediaArea').style.display = 'none';
     document.getElementById('mediaPreview').style.display = 'block';
-    checkCanPost();
+    checkPost();
   }
-
-  function removeMedia() {
-    selectedFile = null;
-    document.getElementById('fileInput').value = '';
-    document.getElementById('previewContent').innerHTML = '';
-    document.getElementById('mediaArea').style.display = 'block';
-    document.getElementById('mediaPreview').style.display = 'none';
-    checkCanPost();
-  }
-
-  function showToast(msg, type='') {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = `toast ${type} show`;
-    setTimeout(() => t.classList.remove('show'), 3500);
-  }
-
-  function setProgress(pct) {
-    document.getElementById('progressBar').style.width = pct + '%';
-  }
-
-  const SITE_LINK = '\n\n📢 Esta é uma página pública, para compartilhar sua postagem aqui acesse https://wonderful-macaron-936e48.netlify.app';
+  function removeMedia() { selectedFile = null; document.getElementById('fileInput').value = ''; document.getElementById('previewContent').innerHTML = ''; document.getElementById('mediaArea').style.display = 'block'; document.getElementById('mediaPreview').style.display = 'none'; checkPost(); }
+  function showToast(msg, type='') { const t = document.getElementById('toast'); t.textContent = msg; t.className = `toast ${type} show`; setTimeout(() => t.classList.remove('show'), 3000); }
+  function setProgress(p) { document.getElementById('progressBar').style.width = p + '%'; }
 
   async function publish() {
     const text = document.getElementById('postText').value.trim();
     if (!text && !selectedFile) return;
-
     const fullText = (text || '') + SITE_LINK;
-
     const btn = document.getElementById('postBtn');
-    btn.classList.add('loading');
-    btn.textContent = 'Publicando...';
-    setProgress(10);
-
+    btn.classList.add('loading'); btn.textContent = 'Publicando...'; setProgress(10);
     try {
       let data;
-
-      if (selectedFile && selectedFile.type.startsWith('image/')) {
-        // POST FOTO
+      if (selectedFile?.type.startsWith('image/')) {
         setProgress(40);
-        const fd = new FormData();
-        fd.append('source', selectedFile);
-        fd.append('message', fullText);
-        fd.append('access_token', PAGE_TOKEN);
-        const res = await fetch(`https://graph.facebook.com/v25.0/${PAGE_ID}/photos`, {
-          method: 'POST', body: fd
-        });
-        data = await res.json();
-        setProgress(90);
-
-      } else if (selectedFile && selectedFile.type.startsWith('video/')) {
-        // POST VÍDEO
+        const fd = new FormData(); fd.append('source', selectedFile); fd.append('message', fullText); fd.append('access_token', PAGE_TOKEN);
+        data = await (await fetch(`${API}/${PAGE_ID}/photos`, { method: 'POST', body: fd })).json();
+      } else if (selectedFile?.type.startsWith('video/')) {
         setProgress(40);
-        const fd = new FormData();
-        fd.append('source', selectedFile);
-        fd.append('description', fullText);
-        fd.append('access_token', PAGE_TOKEN);
-        const res = await fetch(`https://graph.facebook.com/v25.0/${PAGE_ID}/videos`, {
-          method: 'POST', body: fd
-        });
-        data = await res.json();
-        setProgress(90);
-
+        const fd = new FormData(); fd.append('source', selectedFile); fd.append('description', fullText); fd.append('access_token', PAGE_TOKEN);
+        data = await (await fetch(`${API}/${PAGE_ID}/videos`, { method: 'POST', body: fd })).json();
       } else {
-        // POST TEXTO
         setProgress(50);
-        const res = await fetch(`https://graph.facebook.com/v25.0/${PAGE_ID}/feed`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: fullText, access_token: PAGE_TOKEN })
-        });
-        data = await res.json();
-        setProgress(90);
+        data = await (await fetch(`${API}/${PAGE_ID}/feed`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ message: fullText, access_token: PAGE_TOKEN }) })).json();
       }
-
       if (data.id || data.post_id) {
-        setProgress(100);
-        showToast('✅ Publicado no Facebook!', 'success');
-        closeModal();
-      } else {
-        console.error(data);
-        showToast('❌ Erro: ' + (data.error?.message || 'Tente novamente'), 'error');
-      }
-    } catch(e) {
-      showToast('❌ Erro de conexão. Tente novamente.', 'error');
-    }
-
-    setProgress(0);
-    btn.classList.remove('loading');
-    btn.textContent = 'Publicar no Facebook';
-    btn.classList.add('active');
+        setProgress(100); showToast('✅ Publicado no Facebook!', 'success'); closeModal();
+        setTimeout(() => loadFeed(), 2000);
+      } else { showToast('❌ ' + (data.error?.message || 'Tente novamente'), 'error'); }
+    } catch(e) { showToast('❌ Erro de conexão', 'error'); }
+    setProgress(0); btn.classList.remove('loading'); btn.textContent = 'Publicar no Facebook'; btn.classList.add('active');
   }
+
+  function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  loadFeed();
 </script>
 </body>
 </html>
