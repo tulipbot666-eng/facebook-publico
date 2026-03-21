@@ -116,10 +116,23 @@
   .toast.success { background: var(--green); }
   .toast.error { background: var(--red); }
   @media (max-width: 600px) {
-    .page-avatar { width: 100px; height: 100px; font-size: 48px; }
-    .profile-name { font-size: 22px; }
-    .cover-photo { height: 180px; }
-    .profile-row { transform: translateY(-10px); }
+    .page-avatar { width: 90px; height: 90px; font-size: 42px; }
+    .profile-name { font-size: 20px; }
+    .cover-photo { height: 160px; }
+    .profile-row { transform: translateY(-10px); gap: 10px; }
+    .profile-actions .btn span { display: none; }
+    .profile-actions .btn { padding: 8px 10px; font-size: 13px; }
+    .live-badge span:not(.dot) { display: none; }
+    .fb-link { padding: 5px 10px; font-size: 12px; }
+    .main { padding: 0 8px; }
+    .post-box { padding: 10px 12px; }
+    .act-btn { font-size: 12px; padding: 6px 4px; }
+    .modal { margin: 0; border-radius: 16px 16px 0 0; position: fixed; bottom: 0; left: 0; right: 0; max-width: 100%; }
+    .overlay { align-items: flex-end; padding: 0; }
+    textarea.post-ta { font-size: 18px; }
+    .toast { white-space: normal; text-align: center; width: 90%; max-width: 340px; }
+    .tabs-bar { gap: 0; }
+    .tab { padding: 10px 12px; font-size: 13px; }
   }
 </style>
 </head>
