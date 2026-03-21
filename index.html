@@ -280,9 +280,22 @@
       </div>
       <textarea class="post-ta" id="postText" placeholder="No que você está pensando?" oninput="onInput()" maxlength="63206"></textarea>
       <div class="char-count" id="charCount">0 / 63206</div>
+
+      <!-- MEDIA UPLOAD -->
+      <div class="media-area" id="mediaArea">
+        <input type="file" id="fileInput" accept="image/*,video/*" onchange="onFileSelect(event)">
+        <div class="media-icon">🖼️</div>
+        <p>Adicionar foto ou vídeo</p>
+        <small>JPG, PNG, GIF, MP4, MOV</small>
+      </div>
+      <div class="media-preview" id="mediaPreview" style="display:none">
+        <div id="previewContent"></div>
+        <button class="remove-media" onclick="removeMedia()">✕</button>
+      </div>
     </div>
     <div class="modal-footer">
       <button class="btn-post" id="postBtn" onclick="publish()">Publicar no Facebook</button>
+      <div class="progress-bar" id="progressBar"></div>
     </div>
   </div>
 </div>
@@ -293,6 +306,7 @@
 <script>
   const PAGE_TOKEN = 'EAASscq5LZBrEBRO8EbKLgi8V9aBaTlc4pHn6hnEIOJTqVvtGdUKwuQo12BD9KAuL4yetWWlDNnBvPJmiOe5eMVNKLMigD8nf0KVebUyV2feFAEvPuM59YQuzJBQyZBqn91okGVRAi1A3zdc0D34q6RrXi1ZCE5EBxhWXDIgYya3v7Fe0hNkr4ybd3R0xoZC00NEePZC3RebMNswKPk7YHAZCCBLPQCg2wMVwAMCvWNNR0ZD';
   const PAGE_ID = '1030632680135061';
+  let selectedFile = null;
 
   function openModal() {
     document.getElementById('overlay').classList.add('open');
@@ -303,13 +317,43 @@
     document.getElementById('postText').value = '';
     document.getElementById('charCount').textContent = '0 / 63206';
     document.getElementById('postBtn').classList.remove('active');
+    removeMedia();
   }
   function closeIfBg(e) { if (e.target === document.getElementById('overlay')) closeModal(); }
 
   function onInput() {
     const t = document.getElementById('postText').value;
     document.getElementById('charCount').textContent = `${t.length} / 63206`;
-    document.getElementById('postBtn').classList.toggle('active', t.trim().length > 0);
+    checkCanPost();
+  }
+
+  function checkCanPost() {
+    const t = document.getElementById('postText').value.trim();
+    document.getElementById('postBtn').classList.toggle('active', t.length > 0 || selectedFile !== null);
+  }
+
+  function onFileSelect(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    selectedFile = file;
+    const isVideo = file.type.startsWith('video/');
+    const url = URL.createObjectURL(file);
+    const preview = document.getElementById('previewContent');
+    preview.innerHTML = isVideo
+      ? `<video src="${url}" controls></video>`
+      : `<img src="${url}" alt="preview">`;
+    document.getElementById('mediaArea').style.display = 'none';
+    document.getElementById('mediaPreview').style.display = 'block';
+    checkCanPost();
+  }
+
+  function removeMedia() {
+    selectedFile = null;
+    document.getElementById('fileInput').value = '';
+    document.getElementById('previewContent').innerHTML = '';
+    document.getElementById('mediaArea').style.display = 'block';
+    document.getElementById('mediaPreview').style.display = 'none';
+    checkCanPost();
   }
 
   function showToast(msg, type='') {
@@ -319,23 +363,62 @@
     setTimeout(() => t.classList.remove('show'), 3500);
   }
 
+  function setProgress(pct) {
+    document.getElementById('progressBar').style.width = pct + '%';
+  }
+
   async function publish() {
     const text = document.getElementById('postText').value.trim();
-    if (!text) return;
+    if (!text && !selectedFile) return;
 
     const btn = document.getElementById('postBtn');
     btn.classList.add('loading');
     btn.textContent = 'Publicando...';
+    setProgress(10);
 
     try {
-      const res = await fetch(`https://graph.facebook.com/v25.0/${PAGE_ID}/feed`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, access_token: PAGE_TOKEN })
-      });
-      const data = await res.json();
+      let data;
 
-      if (data.id) {
+      if (selectedFile && selectedFile.type.startsWith('image/')) {
+        // POST FOTO
+        setProgress(40);
+        const fd = new FormData();
+        fd.append('source', selectedFile);
+        if (text) fd.append('message', text);
+        fd.append('access_token', PAGE_TOKEN);
+        const res = await fetch(`https://graph.facebook.com/v25.0/${PAGE_ID}/photos`, {
+          method: 'POST', body: fd
+        });
+        data = await res.json();
+        setProgress(90);
+
+      } else if (selectedFile && selectedFile.type.startsWith('video/')) {
+        // POST VÍDEO
+        setProgress(40);
+        const fd = new FormData();
+        fd.append('source', selectedFile);
+        if (text) fd.append('description', text);
+        fd.append('access_token', PAGE_TOKEN);
+        const res = await fetch(`https://graph.facebook.com/v25.0/${PAGE_ID}/videos`, {
+          method: 'POST', body: fd
+        });
+        data = await res.json();
+        setProgress(90);
+
+      } else {
+        // POST TEXTO
+        setProgress(50);
+        const res = await fetch(`https://graph.facebook.com/v25.0/${PAGE_ID}/feed`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text, access_token: PAGE_TOKEN })
+        });
+        data = await res.json();
+        setProgress(90);
+      }
+
+      if (data.id || data.post_id) {
+        setProgress(100);
         showToast('✅ Publicado no Facebook!', 'success');
         closeModal();
       } else {
@@ -346,6 +429,7 @@
       showToast('❌ Erro de conexão. Tente novamente.', 'error');
     }
 
+    setProgress(0);
     btn.classList.remove('loading');
     btn.textContent = 'Publicar no Facebook';
     btn.classList.add('active');
