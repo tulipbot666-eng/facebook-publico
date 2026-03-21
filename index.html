@@ -170,9 +170,18 @@
   </div>
 
   <div id="feed">
-    <div class="feed-loading">
-      <div class="spinner"></div>
-      <div>Carregando publicações...</div>
+    <div class="post-card" style="padding:16px;text-align:center">
+      <div id="fb-root"></div>
+      <div class="fb-page"
+        data-href="https://www.facebook.com/profile.php?id=1030632680135061"
+        data-tabs="timeline"
+        data-width="620"
+        data-height="600"
+        data-small-header="false"
+        data-adapt-container-width="true"
+        data-hide-cover="false"
+        data-show-facepile="true">
+      </div>
     </div>
   </div>
 
@@ -222,6 +231,12 @@
   const PAGE_ID = '1030632680135061';
   const SITE_LINK = '\n\n📢 Esta é uma página pública, para compartilhar sua postagem aqui acesse https://wonderful-macaron-936e48.netlify.app';
   const API = 'https://graph.facebook.com/v25.0';
+  // Facebook SDK
+  window.fbAsyncInit = function() {
+    FB.init({ appId: '1519506451306671', xfbml: true, version: 'v25.0' });
+  };
+  (function(d,s,id){ var js,fjs=d.getElementsByTagName(s)[0]; if(d.getElementById(id))return; js=d.createElement(s); js.id=id; js.src="https://connect.facebook.net/pt_BR/sdk.js"; fjs.parentNode.insertBefore(js,fjs); }(document,'script','facebook-jssdk'));
+
   let nextCursor = null;
   let selectedFile = null;
   let likedPosts = {};
@@ -401,7 +416,7 @@
       }
       if (data.id || data.post_id) {
         setProgress(100); showToast('✅ Publicado no Facebook!', 'success'); closeModal();
-        setTimeout(() => loadFeed(), 2000);
+        setTimeout(() => { if (window.FB) FB.XFBML.parse(); }, 2000);
       } else { showToast('❌ ' + (data.error?.message || 'Tente novamente'), 'error'); }
     } catch(e) { showToast('❌ Erro de conexão', 'error'); }
     setProgress(0); btn.classList.remove('loading'); btn.textContent = 'Publicar no Facebook'; btn.classList.add('active');
@@ -409,7 +424,6 @@
 
   function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  loadFeed();
 </script>
 </body>
 </html>
