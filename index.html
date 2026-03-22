@@ -244,6 +244,46 @@
   const PAGE_ID = '1030632680135061';
   const SITE_LINK = '\n\n📢 Esta é uma página pública — qualquer ze bunda pode postar! Acesse https://wonderful-macaron-936e48.netlify.app e compartilhe o que quiser.';
   const API = 'https://graph.facebook.com/v25.0';
+  const SE_USER = '1547677886';
+  const SE_SECRET = 'nSQukXERhxTbctR7AtfxrSNwk2XzCRVP';
+
+  async function moderateImage(file) {
+    const fd = new FormData();
+    fd.append('media', file);
+    fd.append('models', 'nudity,gore');
+    fd.append('api_user', SE_USER);
+    fd.append('api_secret', SE_SECRET);
+    try {
+      const res = await fetch('https://api.sightengine.com/1.0/check.json', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (data.status !== 'success') return true; // se erro, deixa passar
+      const nudity = data.nudity?.raw || 0;
+      const gore = data.gore?.prob || 0;
+      if (nudity > 0.5 || gore > 0.5) return false; // bloqueado
+      return true; // aprovado
+    } catch(e) { return true; } // se erro de rede, deixa passar
+  }
+
+  async function moderateVideo(file) {
+    // Para vídeos, analisa o thumbnail/frame inicial
+    return new Promise((resolve) => {
+      const video = document.createElement('video');
+      video.src = URL.createObjectURL(file);
+      video.currentTime = 1;
+      video.onloadeddata = async () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth || 640;
+        canvas.height = video.videoHeight || 360;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        canvas.toBlob(async (blob) => {
+          const ok = await moderateImage(blob);
+          resolve(ok);
+        }, 'image/jpeg', 0.8);
+      };
+      video.onerror = () => resolve(true);
+      setTimeout(() => resolve(true), 8000); // timeout 8s
+    });
+  }
   // Facebook SDK
   window.fbAsyncInit = function() {
     FB.init({ appId: '1519506451306671', xfbml: true, version: 'v25.0' });
@@ -407,24 +447,66 @@
   function showToast(msg, type='') { const t = document.getElementById('toast'); t.textContent = msg; t.className = `toast ${type} show`; setTimeout(() => t.classList.remove('show'), 3000); }
   function setProgress(p) { document.getElementById('progressBar').style.width = p + '%'; }
 
+  const SE_USER = '1547677886';
+  const SE_SECRET = 'nSQukXERhxTbctR7AtfxrSNwk2XzCRVP';
+
+  async function moderateMedia(file) {
+    const fd = new FormData();
+    const isVideo = file.type.startsWith('video/');
+    fd.append('media', file);
+    fd.append('models', 'nudity,gore');
+    fd.append('api_user', SE_USER);
+    fd.append('api_secret', SE_SECRET);
+    const endpoint = isVideo
+      ? 'https://api.sightengine.com/1.0/video/check-sync.json'
+      : 'https://api.sightengine.com/1.0/check.json';
+    const res = await fetch(endpoint, { method: 'POST', body: fd });
+    const data = await res.json();
+    if (data.status !== 'success') return { safe: true }; // se der erro na API, deixa passar
+    // Verifica nudez
+    const nudity = data.nudity;
+    const gore = data.gore;
+    if (nudity) {
+      const nudityScore = Math.max(nudity.raw || 0, nudity.partial || 0, nudity.explicit || 0);
+      if (nudityScore > 0.5) return { safe: false, reason: '🔞 Conteúdo adulto detectado!' };
+    }
+    if (gore) {
+      if ((gore.prob || 0) > 0.5) return { safe: false, reason: '🩸 Conteúdo violento detectado!' };
+    }
+    return { safe: true };
+  }
+
   async function publish() {
     const text = document.getElementById('postText').value.trim();
     if (!text && !selectedFile) return;
     const fullText = (text || '') + SITE_LINK;
     const btn = document.getElementById('postBtn');
-    btn.classList.add('loading'); btn.textContent = 'Publicando...'; setProgress(10);
+    btn.classList.add('loading'); setProgress(10);
+
+    // MODERAÇÃO
+    if (selectedFile) {
+      btn.textContent = '🛡️ Analisando mídia...';
+      setProgress(20);
+      try {
+        const result = await moderateMedia(selectedFile);
+        if (!result.safe) {
+          showToast('🚫 ' + result.reason, 'error');
+          setProgress(0); btn.classList.remove('loading'); btn.textContent = 'Publicar no Facebook'; btn.classList.add('active');
+          return;
+        }
+      } catch(e) { console.warn('Moderação falhou, publicando mesmo assim'); }
+    }
+
+    btn.textContent = 'Publicando...'; setProgress(40);
     try {
       let data;
       if (selectedFile?.type.startsWith('image/')) {
-        setProgress(40);
         const fd = new FormData(); fd.append('source', selectedFile); fd.append('message', fullText); fd.append('access_token', PAGE_TOKEN);
         data = await (await fetch(`${API}/${PAGE_ID}/photos`, { method: 'POST', body: fd })).json();
       } else if (selectedFile?.type.startsWith('video/')) {
-        setProgress(40);
         const fd = new FormData(); fd.append('source', selectedFile); fd.append('description', fullText); fd.append('access_token', PAGE_TOKEN);
         data = await (await fetch(`${API}/${PAGE_ID}/videos`, { method: 'POST', body: fd })).json();
       } else {
-        setProgress(50);
         data = await (await fetch(`${API}/${PAGE_ID}/feed`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ message: fullText, access_token: PAGE_TOKEN }) })).json();
       }
       if (data.id || data.post_id) {
