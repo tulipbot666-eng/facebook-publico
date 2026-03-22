@@ -76,9 +76,8 @@
   .media-preview img, .media-preview video { width: 100%; max-height: 250px; object-fit: cover; border-radius: 8px; display: block; }
   .remove-media { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,.6); color: #fff; border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
   .modal-footer { padding: 0 16px 16px; }
-  .btn-post { width: 100%; padding: 10px; border-radius: 6px; background: var(--blue); color: #fff; border: none; font-family: inherit; font-size: 16px; font-weight: 800; cursor: pointer; transition: background .15s, opacity .15s; opacity: .45; pointer-events: none; }
-  .btn-post.active { opacity: 1; pointer-events: all; }
-  .btn-post.active:hover { background: var(--blue-d); }
+  .btn-post { width: 100%; padding: 10px; border-radius: 6px; background: var(--blue); color: #fff; border: none; font-family: inherit; font-size: 16px; font-weight: 800; cursor: pointer; transition: background .15s, opacity .15s; }
+  .btn-post:hover { background: var(--blue-d); }
   .btn-post.loading { opacity: .7; pointer-events: none; }
   .progress-bar { width: 0%; height: 4px; background: var(--blue); border-radius: 2px; margin-top: 8px; transition: width .3s; }
   .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1c1e21; color: #fff; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 15px; z-index: 300; transition: transform .3s ease; text-align: center; max-width: 90%; }
@@ -93,9 +92,13 @@
     .live-badge span:not(.dot) { display: none; }
     .fb-link { padding: 5px 10px; font-size: 12px; }
     .main { padding: 0 8px; }
-    .modal { border-radius: 16px 16px 0 0; position: fixed; bottom: 0; left: 0; right: 0; max-width: 100%; }
-    .overlay { align-items: flex-end; padding: 0; }
+    .overlay { align-items: flex-end; padding: 0; background: rgba(0,0,0,.55); }
+    .modal { border-radius: 16px 16px 0 0; position: fixed; bottom: 0; left: 0; right: 0; max-width: 100%; max-height: 90vh; overflow-y: auto; }
+    .modal-body { padding: 12px 16px; }
+    .modal-footer { padding: 0 16px 32px; position: sticky; bottom: 0; background: var(--white); }
+    .btn-post { padding: 14px; font-size: 17px; }
     .tab { padding: 10px 12px; font-size: 13px; }
+    textarea.post-ta { font-size: 16px; min-height: 80px; }
   }
 </style>
 </head>
@@ -175,7 +178,7 @@
           <div class="modal-badge">🌍 Público</div>
         </div>
       </div>
-      <textarea class="post-ta" id="postText" placeholder="No que você está pensando?" oninput="onInput()" maxlength="63206"></textarea>
+      <textarea class="post-ta" id="postText" placeholder="No que você está pensando?" oninput="onInput()" onkeyup="onInput()" onchange="onInput()" maxlength="63206"></textarea>
       <div class="char-count" id="charCount">0 / 63206</div>
       <div class="media-area" id="mediaArea">
         <input type="file" id="fileInput" accept="image/*,video/*" onchange="onFileSelect(event)">
@@ -228,12 +231,8 @@
   function onInput() {
     const t = document.getElementById('postText').value;
     document.getElementById('charCount').textContent = `${t.length} / 63206`;
-    checkPost();
   }
-  function checkPost() {
-    const t = document.getElementById('postText').value.trim();
-    document.getElementById('postBtn').classList.toggle('active', t.length > 0 || !!selectedFile);
-  }
+  function checkPost() {}
   function onFileSelect(e) {
     const f = e.target.files[0]; if (!f) return;
     selectedFile = f;
@@ -303,7 +302,10 @@
   // ── PUBLICAR ──
   async function publish() {
     const text = document.getElementById('postText').value.trim();
-    if (!text && !selectedFile) return;
+    if (!text && !selectedFile) {
+      showToast('✍️ Escreva algo ou adicione uma foto/vídeo!', '');
+      return;
+    }
 
     // Limite de 3 posts por dia
     if (!canPost()) {
