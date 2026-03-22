@@ -307,17 +307,8 @@
       return;
     }
 
-    // Limite de 3 posts por dia
-    if (!canPost()) {
-      showToast('⛔ Você já postou 3 vezes hoje! Volte amanhã.', 'error');
-      return;
-    }
-
     const fullText = (text || '') + SITE_LINK;
     const btn = document.getElementById('postBtn');
-
-    // Verifica limite
-    if (!checkPostLimit()) return;
 
     btn.classList.add('loading');
     setProgress(10);
