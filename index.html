@@ -192,7 +192,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn-post" id="postBtn" onclick="publish()">Publicar no Facebook</button>
+      <button class="btn-post" id="postBtn">Publicar no Facebook</button>
       <div class="progress-bar" id="progressBar"></div>
     </div>
   </div>
@@ -387,6 +387,11 @@
     btn.textContent = 'Publicar no Facebook';
     btn.classList.add('active');
   }
+  // Fix celular
+  document.getElementById('postBtn').addEventListener('touchend', function(e) {
+    e.preventDefault();
+    publish();
+  });
 </script>
 </body>
 </html>
