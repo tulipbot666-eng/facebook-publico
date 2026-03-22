@@ -21,84 +21,71 @@
   .live-badge { display: flex; align-items: center; gap: 6px; background: var(--blue-light); color: var(--blue); border-radius: 20px; padding: 5px 12px; font-size: 13px; font-weight: 700; }
   .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
-  .fb-link { display: flex; align-items: center; gap: 6px; background: var(--blue); color: #fff; border-radius: 20px; padding: 5px 14px; font-size: 13px; font-weight: 700; text-decoration: none; transition: background .15s; }
-  .fb-link:hover { background: var(--blue-d); }
-  .cover-wrap { background: var(--white); border-bottom: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 16px; }
-  .cover-photo { width: 100%; height: 280px; background: linear-gradient(135deg, #1877f2 0%, #42b0f5 40%, #a259ff 100%); position: relative; overflow: hidden; }
-  .cover-photo::before { content: 'Página Pública'; position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.12); font-size: 80px; font-weight: 900; white-space: nowrap; letter-spacing: -2px; }
-  .cover-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.3)); }
+  .fb-link { display: flex; align-items: center; gap: 6px; background: var(--blue); color: #fff; border-radius: 20px; padding: 5px 14px; font-size: 13px; font-weight: 700; text-decoration: none; }
+  .cover-wrap { background: var(--white); border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  .cover-photo { width: 100%; height: 240px; background: linear-gradient(135deg, #1877f2, #42b0f5, #a259ff); }
   .cover-inner { max-width: 940px; margin: 0 auto; padding: 0 16px; }
   .profile-row { display: flex; align-items: flex-end; gap: 16px; padding-bottom: 12px; transform: translateY(-20px); flex-wrap: wrap; }
-  .page-avatar { width: 168px; height: 168px; border-radius: 50%; border: 4px solid var(--white); flex-shrink: 0; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 80px; box-shadow: 0 2px 16px rgba(0,0,0,.2); }
-  .profile-info { flex: 1; padding-bottom: 4px; min-width: 200px; }
-  .profile-name { font-size: 30px; font-weight: 900; }
-  .profile-sub { color: var(--sec); font-size: 15px; margin-top: 4px; }
+  .page-avatar { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--white); flex-shrink: 0; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 70px; }
+  .profile-info { flex: 1; padding-bottom: 4px; min-width: 160px; }
+  .profile-name { font-size: 28px; font-weight: 900; }
+  .profile-sub { color: var(--sec); font-size: 14px; margin-top: 4px; }
   .profile-actions { display: flex; gap: 8px; padding-bottom: 8px; }
-  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 6px; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; border: none; transition: background .15s; text-decoration: none; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 6px; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; border: none; text-decoration: none; }
   .btn-primary { background: var(--blue); color: #fff; }
-  .btn-primary:hover { background: var(--blue-d); }
   .btn-secondary { background: var(--hover); color: var(--text); border: 1px solid var(--border); }
-  .btn-secondary:hover { background: #e4e6e9; }
-  .tabs-bar { border-top: 1px solid var(--border); display: flex; gap: 4px; padding: 0 16px; max-width: 940px; margin: 0 auto; overflow-x: auto; }
-  .tab { padding: 12px 16px; font-weight: 700; font-size: 15px; cursor: pointer; border-bottom: 3px solid transparent; color: var(--sec); white-space: nowrap; flex-shrink: 0; }
+  .tabs-bar { border-top: 1px solid var(--border); display: flex; padding: 0 16px; max-width: 940px; margin: 0 auto; }
+  .tab { padding: 12px 16px; font-weight: 700; font-size: 15px; border-bottom: 3px solid transparent; color: var(--sec); }
   .tab.active { color: var(--blue); border-color: var(--blue); }
   .main { max-width: 680px; margin: 0 auto 32px; padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
   .post-box { background: var(--white); border-radius: 8px; box-shadow: var(--shadow); padding: 12px 16px; }
   .post-box-top { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
   .mini-av { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 22px; }
-  .trigger { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 10px 16px; cursor: pointer; color: var(--sec); font-family: inherit; font-size: 16px; transition: background .15s; text-align: left; }
-  .trigger:hover { background: #e4e6e9; }
+  .trigger { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 10px 16px; cursor: pointer; color: var(--sec); font-family: inherit; font-size: 16px; text-align: left; }
   hr.divider { border: none; border-top: 1px solid var(--border); margin: 8px 0; }
   .post-actions { display: flex; gap: 4px; }
-  .act-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700; color: var(--sec); background: none; border: none; transition: background .15s; }
-  .act-btn:hover { background: var(--hover); }
-  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 200; align-items: center; justify-content: center; padding: 16px; }
+  .act-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700; color: var(--sec); background: none; border: none; }
+  .fb-embed { background: var(--white); border-radius: 8px; box-shadow: var(--shadow); overflow: hidden; padding: 16px; text-align: center; }
+
+  /* MODAL */
+  .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 200; align-items: flex-end; justify-content: center; }
   .overlay.open { display: flex; }
-  .modal { background: var(--white); border-radius: 12px; width: 100%; max-width: 500px; box-shadow: 0 8px 40px rgba(0,0,0,.25); animation: pop .18s ease; }
-  @keyframes pop { from{transform:scale(.93);opacity:0}to{transform:scale(1);opacity:1} }
+  .modal { background: var(--white); border-radius: 16px 16px 0 0; width: 100%; max-width: 500px; max-height: 92vh; overflow-y: auto; box-shadow: 0 -4px 32px rgba(0,0,0,.2); }
   .modal-head { display: flex; align-items: center; justify-content: center; padding: 14px 16px; border-bottom: 1px solid var(--border); position: relative; }
   .modal-head h2 { font-size: 20px; font-weight: 800; }
   .modal-close { position: absolute; right: 14px; background: var(--bg); border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-  .modal-close:hover { background: #e4e6e9; }
   .modal-body { padding: 16px; }
   .modal-user { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-  .modal-badge { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 2px 8px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; margin-top: 3px; }
-  textarea.post-ta { width: 100%; min-height: 100px; border: none; outline: none; resize: none; font-family: inherit; font-size: 20px; color: var(--text); background: transparent; line-height: 1.4; }
+  .modal-badge { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 2px 8px; font-size: 12px; font-weight: 700; margin-top: 3px; display: inline-block; }
+  textarea.post-ta { width: 100%; min-height: 100px; border: none; outline: none; resize: none; font-family: inherit; font-size: 18px; color: var(--text); background: transparent; line-height: 1.4; }
   textarea.post-ta::placeholder { color: #bcc0c4; }
-  .char-count { text-align: right; font-size: 12px; color: var(--sec); margin-top: 4px; }
-  .media-area { border: 2px dashed var(--border); border-radius: 10px; margin: 10px 0; padding: 16px; text-align: center; cursor: pointer; transition: border-color .15s, background .15s; position: relative; }
-  .media-area:hover { border-color: var(--blue); background: var(--blue-light); }
+  .media-area { border: 2px dashed var(--border); border-radius: 10px; margin: 10px 0; padding: 16px; text-align: center; cursor: pointer; position: relative; }
   .media-area input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-  .media-icon { font-size: 32px; margin-bottom: 6px; }
-  .media-area p { font-size: 14px; color: var(--sec); font-weight: 600; }
-  .media-area small { font-size: 12px; color: #bcc0c4; }
   .media-preview { margin: 10px 0; border-radius: 8px; overflow: hidden; position: relative; }
   .media-preview img, .media-preview video { width: 100%; max-height: 250px; object-fit: cover; border-radius: 8px; display: block; }
-  .remove-media { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,.6); color: #fff; border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-  .modal-footer { padding: 0 16px 16px; }
-  .btn-post { width: 100%; padding: 10px; border-radius: 6px; background: var(--blue); color: #fff; border: none; font-family: inherit; font-size: 16px; font-weight: 800; cursor: pointer; transition: background .15s, opacity .15s; }
-  .btn-post:hover { background: var(--blue-d); }
-  .btn-post.loading { opacity: .7; pointer-events: none; }
+  .remove-media { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,.6); color: #fff; border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 16px; cursor: pointer; }
+  .modal-footer { padding: 12px 16px 32px; position: sticky; bottom: 0; background: var(--white); border-top: 1px solid var(--border); }
+  .btn-post { width: 100%; padding: 14px; border-radius: 8px; background: var(--blue); color: #fff; border: none; font-family: inherit; font-size: 17px; font-weight: 800; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .btn-post:active { background: var(--blue-d); }
+  .btn-post:disabled { opacity: .6; }
   .progress-bar { width: 0%; height: 4px; background: var(--blue); border-radius: 2px; margin-top: 8px; transition: width .3s; }
-  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1c1e21; color: #fff; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 15px; z-index: 300; transition: transform .3s ease; text-align: center; max-width: 90%; }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: #1c1e21; color: #fff; padding: 12px 20px; border-radius: 8px; font-weight: 700; font-size: 15px; z-index: 300; transition: transform .3s; text-align: center; max-width: 90vw; }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.success { background: var(--green); }
   .toast.error { background: var(--red); }
+
+  @media (min-width: 601px) {
+    .overlay { align-items: center; }
+    .modal { border-radius: 12px; }
+    .modal-footer { padding: 12px 16px 16px; }
+  }
   @media (max-width: 600px) {
-    .page-avatar { width: 90px; height: 90px; font-size: 42px; }
+    .page-avatar { width: 90px; height: 90px; font-size: 40px; }
     .profile-name { font-size: 20px; }
     .cover-photo { height: 160px; }
-    .profile-row { transform: translateY(-10px); gap: 10px; }
-    .live-badge span:not(.dot) { display: none; }
-    .fb-link { padding: 5px 10px; font-size: 12px; }
+    .profile-row { transform: translateY(-10px); }
     .main { padding: 0 8px; }
-    .overlay { align-items: flex-end; padding: 0; background: rgba(0,0,0,.55); }
-    .modal { border-radius: 16px 16px 0 0; position: fixed; bottom: 0; left: 0; right: 0; max-width: 100%; max-height: 90vh; overflow-y: auto; }
-    .modal-body { padding: 12px 16px; }
-    .modal-footer { padding: 0 16px 32px; position: sticky; bottom: 0; background: var(--white); }
-    .btn-post { padding: 14px; font-size: 17px; }
-    .tab { padding: 10px 12px; font-size: 13px; }
-    textarea.post-ta { font-size: 16px; min-height: 80px; }
+    .live-badge span:not(.dot) { display: none; }
   }
 </style>
 </head>
@@ -122,7 +109,7 @@
         <div class="profile-sub">📌 Site de entretenimento · Página pública</div>
       </div>
       <div class="profile-actions">
-        <button class="btn btn-primary" onclick="openModal()">✏️ Criar publicação</button>
+        <button class="btn btn-primary" id="btnAbrirModal">✏️ Criar publicação</button>
         <a class="btn btn-secondary" href="https://www.facebook.com/profile.php?id=1030632680135061" target="_blank">📘 Facebook</a>
       </div>
     </div>
@@ -138,22 +125,22 @@
   <div class="post-box">
     <div class="post-box-top">
       <div class="mini-av">📢</div>
-      <button class="trigger" onclick="openModal()">No que você está pensando?</button>
+      <button class="trigger" id="btnTrigger">No que você está pensando?</button>
     </div>
     <hr class="divider">
     <div class="post-actions">
-      <button class="act-btn" onclick="openModal()">📹 Vídeo</button>
-      <button class="act-btn" onclick="openModal()">🖼️ Foto</button>
-      <button class="act-btn" onclick="openModal()">😊 Sentimento</button>
+      <button class="act-btn" id="btnVideo">📹 Vídeo</button>
+      <button class="act-btn" id="btnFoto">🖼️ Foto</button>
+      <button class="act-btn" id="btnSent">😊 Sentimento</button>
     </div>
   </div>
 
-  <div style="background:var(--white);border-radius:8px;box-shadow:var(--shadow);overflow:hidden;">
+  <div class="fb-embed">
     <div id="fb-root"></div>
     <div class="fb-page"
       data-href="https://www.facebook.com/profile.php?id=1030632680135061"
       data-tabs="timeline"
-      data-width="640"
+      data-width="620"
       data-height="600"
       data-small-header="false"
       data-adapt-container-width="true"
@@ -164,11 +151,11 @@
 </div>
 
 <!-- MODAL -->
-<div class="overlay" id="overlay" onclick="closeIfBg(event)">
-  <div class="modal">
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
     <div class="modal-head">
       <h2>Criar publicação</h2>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button class="modal-close" id="btnFechar">✕</button>
     </div>
     <div class="modal-body">
       <div class="modal-user">
@@ -178,17 +165,16 @@
           <div class="modal-badge">🌍 Público</div>
         </div>
       </div>
-      <textarea class="post-ta" id="postText" placeholder="No que você está pensando?" oninput="onInput()" onkeyup="onInput()" onchange="onInput()" maxlength="63206"></textarea>
-      <div class="char-count" id="charCount">0 / 63206</div>
-      <div class="media-area" id="mediaArea">
-        <input type="file" id="fileInput" accept="image/*,video/*" onchange="onFileSelect(event)">
-        <div class="media-icon">🖼️</div>
-        <p>Adicionar foto ou vídeo</p>
-        <small>JPG, PNG, GIF, MP4, MOV</small>
+      <textarea class="post-ta" id="postText" placeholder="No que você está pensando?"></textarea>
+      <div id="mediaArea" class="media-area">
+        <input type="file" id="fileInput" accept="image/*,video/*">
+        <div style="font-size:32px;margin-bottom:6px">🖼️</div>
+        <p style="font-size:14px;color:var(--sec);font-weight:600">Adicionar foto ou vídeo</p>
+        <small style="font-size:12px;color:#bcc0c4">JPG, PNG, GIF, MP4, MOV</small>
       </div>
-      <div class="media-preview" id="mediaPreview" style="display:none">
+      <div id="mediaPreview" class="media-preview" style="display:none">
         <div id="previewContent"></div>
-        <button class="remove-media" onclick="removeMedia()">✕</button>
+        <button class="remove-media" id="btnRemoveMedia">✕</button>
       </div>
     </div>
     <div class="modal-footer">
@@ -201,188 +187,191 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  // ── CONFIG ──
-  const PAGE_TOKEN = 'EAASscq5LZBrEBRB0WLs7tkHE3GY2ZA2LbmAl16TgNmFRKAi9FXldpyLa3id3tmz9CJgT5jLioFZBT2KJ3viGoz7LE5VGPX0u0RXOgezaKzFu8GXEYAdb8lBfTZBgyCpGZCudUvlyOdZBhEIW6gyEPN38ZBzVCjJy6ygf1CqQL4Gb84bUlDZCHvHhNbBhAyljOk0psTgGPuJj';
-  const PAGE_ID = '1030632680135061';
-  const SITE_LINK = '\n\n📢 Esta é uma página pública — qualquer ze bunda pode postar! Acesse https://wonderful-macaron-936e48.netlify.app e compartilhe o que quiser.';
-  const API = 'https://graph.facebook.com/v25.0';
-  const SE_USER = '1547677886';
-  const SE_SECRET = 'nSQukXERhxTbctR7AtfxrSNwk2XzCRVP';
+  var PAGE_TOKEN = 'EAASscq5LZBrEBRB0WLs7tkHE3GY2ZA2LbmAl16TgNmFRKAi9FXldpyLa3id3tmz9CJgT5jLioFZBT2KJ3viGoz7LE5VGPX0u0RXOgezaKzFu8GXEYAdb8lBfTZBgyCpGZCudUvlyOdZBhEIW6gyEPN38ZBzVCjJy6ygf1CqQL4Gb84bUlDZCHvHhNbBhAyljOk0psTgGPuJj';
+  var PAGE_ID = '1030632680135061';
+  var SITE_LINK = '\n\n📢 Esta é uma página pública — qualquer ze bunda pode postar! Acesse https://wonderful-macaron-936e48.netlify.app e compartilhe o que quiser.';
+  var API = 'https://graph.facebook.com/v25.0';
+  var SE_USER = '1547677886';
+  var SE_SECRET = 'nSQukXERhxTbctR7AtfxrSNwk2XzCRVP';
+  var selectedFile = null;
 
-  let selectedFile = null;
-
-  // ── FACEBOOK SDK ──
-  window.fbAsyncInit = function() {
-    FB.init({ appId: '1315508457306801', xfbml: true, version: 'v25.0' });
-  };
+  // Facebook SDK
+  window.fbAsyncInit = function() { FB.init({ appId: '1315508457306801', xfbml: true, version: 'v25.0' }); };
   (function(d,s,id){ var js,fjs=d.getElementsByTagName(s)[0]; if(d.getElementById(id))return; js=d.createElement(s); js.id=id; js.src="https://connect.facebook.net/pt_BR/sdk.js"; fjs.parentNode.insertBefore(js,fjs); }(document,'script','facebook-jssdk'));
 
-  // ── MODAL ──
-  function openModal() { document.getElementById('overlay').classList.add('open'); document.getElementById('postText').focus(); }
+  function openModal() { document.getElementById('overlay').classList.add('open'); }
   function closeModal() {
     document.getElementById('overlay').classList.remove('open');
     document.getElementById('postText').value = '';
-    document.getElementById('charCount').textContent = '0 / 63206';
-    document.getElementById('postBtn').classList.remove('active');
     removeMedia();
   }
-  function closeIfBg(e) { if (e.target === document.getElementById('overlay')) closeModal(); }
 
-  function onInput() {
-    const t = document.getElementById('postText').value;
-    document.getElementById('charCount').textContent = `${t.length} / 63206`;
-  }
-  function checkPost() {}
-  function onFileSelect(e) {
-    const f = e.target.files[0]; if (!f) return;
-    selectedFile = f;
-    const url = URL.createObjectURL(f);
-    document.getElementById('previewContent').innerHTML = f.type.startsWith('video/') ? `<video src="${url}" controls></video>` : `<img src="${url}">`;
-    document.getElementById('mediaArea').style.display = 'none';
-    document.getElementById('mediaPreview').style.display = 'block';
-    checkPost();
-  }
   function removeMedia() {
     selectedFile = null;
     document.getElementById('fileInput').value = '';
     document.getElementById('previewContent').innerHTML = '';
     document.getElementById('mediaArea').style.display = 'block';
     document.getElementById('mediaPreview').style.display = 'none';
-    checkPost();
   }
 
-  // ── TOAST ──
-  function showToast(msg, type='') {
-    const t = document.getElementById('toast');
+  function showToast(msg, type) {
+    var t = document.getElementById('toast');
     t.textContent = msg;
-    t.className = `toast ${type} show`;
-    setTimeout(() => t.classList.remove('show'), 3500);
+    t.className = 'toast ' + (type||'') + ' show';
+    setTimeout(function() { t.classList.remove('show'); }, 3500);
   }
+
   function setProgress(p) { document.getElementById('progressBar').style.width = p + '%'; }
 
-  // ── MODERAÇÃO SIGHTENGINE ──
-  async function moderateFile(file) {
-    try {
-      const fd = new FormData();
+  // Botões abrir modal
+  document.getElementById('btnAbrirModal').addEventListener('click', openModal);
+  document.getElementById('btnTrigger').addEventListener('click', openModal);
+  document.getElementById('btnVideo').addEventListener('click', openModal);
+  document.getElementById('btnFoto').addEventListener('click', openModal);
+  document.getElementById('btnSent').addEventListener('click', openModal);
+  document.getElementById('btnFechar').addEventListener('click', closeModal);
+  document.getElementById('btnRemoveMedia').addEventListener('click', removeMedia);
+
+  // Fechar clicando fora
+  document.getElementById('overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // Arquivo
+  document.getElementById('fileInput').addEventListener('change', function(e) {
+    var f = e.target.files[0];
+    if (!f) return;
+    selectedFile = f;
+    var url = URL.createObjectURL(f);
+    var isVideo = f.type.indexOf('video') === 0;
+    document.getElementById('previewContent').innerHTML = isVideo
+      ? '<video src="' + url + '" controls style="width:100%;border-radius:8px"></video>'
+      : '<img src="' + url + '" style="width:100%;border-radius:8px">';
+    document.getElementById('mediaArea').style.display = 'none';
+    document.getElementById('mediaPreview').style.display = 'block';
+  });
+
+  // Moderação
+  function moderateFile(file) {
+    return new Promise(function(resolve) {
+      var fd = new FormData();
       fd.append('media', file);
       fd.append('models', 'nudity,gore');
       fd.append('api_user', SE_USER);
       fd.append('api_secret', SE_SECRET);
-      const res = await fetch('https://api.sightengine.com/1.0/check.json', { method: 'POST', body: fd });
-      const data = await res.json();
-      if (data.status !== 'success') return { safe: true };
-      const nudity = Math.max(data.nudity?.raw || 0, data.nudity?.partial || 0, data.nudity?.explicit || 0);
-      const gore = data.gore?.prob || 0;
-      if (nudity > 0.5) return { safe: false, reason: '🔞 Conteúdo adulto detectado! Post bloqueado.' };
-      if (gore > 0.5) return { safe: false, reason: '🩸 Conteúdo violento detectado! Post bloqueado.' };
-      return { safe: true };
-    } catch(e) { return { safe: true }; }
-  }
-
-  async function moderateVideo(file) {
-    return new Promise((resolve) => {
-      const video = document.createElement('video');
-      video.preload = 'metadata';
-      video.src = URL.createObjectURL(file);
-      video.currentTime = 1;
-      video.onseeked = async () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = 640; canvas.height = 360;
-        canvas.getContext('2d').drawImage(video, 0, 0, 640, 360);
-        canvas.toBlob(async (blob) => {
-          const result = await moderateFile(blob);
-          resolve(result);
-        }, 'image/jpeg', 0.8);
-      };
-      video.onerror = () => resolve({ safe: true });
-      setTimeout(() => resolve({ safe: true }), 10000);
+      fetch('https://api.sightengine.com/1.0/check.json', { method: 'POST', body: fd })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.status !== 'success') return resolve({ safe: true });
+          var nudity = Math.max(data.nudity && data.nudity.raw || 0, data.nudity && data.nudity.explicit || 0);
+          var gore = data.gore && data.gore.prob || 0;
+          if (nudity > 0.5) return resolve({ safe: false, reason: '🔞 Conteúdo adulto bloqueado!' });
+          if (gore > 0.5) return resolve({ safe: false, reason: '🩸 Conteúdo violento bloqueado!' });
+          resolve({ safe: true });
+        })
+        .catch(function() { resolve({ safe: true }); });
     });
   }
 
-  // ── PUBLICAR ──
-  async function publish() {
-    const text = document.getElementById('postText').value.trim();
+  function moderateVideo(file) {
+    return new Promise(function(resolve) {
+      var video = document.createElement('video');
+      video.preload = 'metadata';
+      video.src = URL.createObjectURL(file);
+      video.currentTime = 1;
+      video.onseeked = function() {
+        var canvas = document.createElement('canvas');
+        canvas.width = 640; canvas.height = 360;
+        canvas.getContext('2d').drawImage(video, 0, 0, 640, 360);
+        canvas.toBlob(function(blob) {
+          moderateFile(blob).then(resolve);
+        }, 'image/jpeg', 0.8);
+      };
+      video.onerror = function() { resolve({ safe: true }); };
+      setTimeout(function() { resolve({ safe: true }); }, 10000);
+    });
+  }
+
+  // PUBLICAR
+  function publish() {
+    var text = document.getElementById('postText').value.trim();
     if (!text && !selectedFile) {
       showToast('✍️ Escreva algo ou adicione uma foto/vídeo!', '');
       return;
     }
 
-    const fullText = (text || '') + SITE_LINK;
-    const btn = document.getElementById('postBtn');
-
-    btn.classList.add('loading');
+    var fullText = (text || '') + SITE_LINK;
+    var btn = document.getElementById('postBtn');
+    btn.disabled = true;
+    btn.textContent = 'Verificando...';
     setProgress(10);
 
-    // Moderação
-    if (selectedFile) {
-      btn.textContent = '🛡️ Verificando conteúdo...';
-      setProgress(25);
-      let result;
-      if (selectedFile.type.startsWith('video/')) {
-        result = await moderateVideo(selectedFile);
-      } else {
-        result = await moderateFile(selectedFile);
-      }
-      if (!result.safe) {
-        showToast(result.reason, 'error');
-        setProgress(0);
-        btn.classList.remove('loading');
-        btn.textContent = 'Publicar no Facebook';
-        btn.classList.add('active');
-        return;
-      }
-    }
+    function doPost() {
+      btn.textContent = 'Publicando...';
+      setProgress(50);
 
-    btn.textContent = 'Publicando...';
-    setProgress(50);
-
-    try {
-      let data;
-      if (selectedFile?.type.startsWith('image/')) {
-        const fd = new FormData();
+      var promise;
+      if (selectedFile && selectedFile.type.indexOf('image') === 0) {
+        var fd = new FormData();
         fd.append('source', selectedFile);
         fd.append('message', fullText);
         fd.append('access_token', PAGE_TOKEN);
-        const res = await fetch(`${API}/${PAGE_ID}/photos`, { method: 'POST', body: fd });
-        data = await res.json();
-      } else if (selectedFile?.type.startsWith('video/')) {
-        const fd = new FormData();
-        fd.append('source', selectedFile);
-        fd.append('description', fullText);
-        fd.append('access_token', PAGE_TOKEN);
-        const res = await fetch(`${API}/${PAGE_ID}/videos`, { method: 'POST', body: fd });
-        data = await res.json();
+        promise = fetch(API + '/' + PAGE_ID + '/photos', { method: 'POST', body: fd }).then(function(r) { return r.json(); });
+      } else if (selectedFile && selectedFile.type.indexOf('video') === 0) {
+        var fd2 = new FormData();
+        fd2.append('source', selectedFile);
+        fd2.append('description', fullText);
+        fd2.append('access_token', PAGE_TOKEN);
+        promise = fetch(API + '/' + PAGE_ID + '/videos', { method: 'POST', body: fd2 }).then(function(r) { return r.json(); });
       } else {
-        const res = await fetch(`${API}/${PAGE_ID}/feed`, {
+        promise = fetch(API + '/' + PAGE_ID + '/feed', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: fullText, access_token: PAGE_TOKEN })
-        });
-        data = await res.json();
+        }).then(function(r) { return r.json(); });
       }
 
-      if (data.id || data.post_id) {
-        setProgress(100);
-        showToast('✅ Publicado no Facebook!', 'success');
-        closeModal();
-        setTimeout(() => { if (window.FB) FB.XFBML.parse(); }, 2000);
-      } else {
-        showToast('❌ ' + (data.error?.message || 'Tente novamente'), 'error');
-      }
-    } catch(e) {
-      showToast('❌ Erro de conexão', 'error');
+      promise.then(function(data) {
+        if (data.id || data.post_id) {
+          setProgress(100);
+          showToast('✅ Publicado no Facebook!', 'success');
+          closeModal();
+          setTimeout(function() { if (window.FB) FB.XFBML.parse(); }, 2000);
+        } else {
+          showToast('❌ ' + ((data.error && data.error.message) || 'Tente novamente'), 'error');
+        }
+      }).catch(function() {
+        showToast('❌ Erro de conexão', 'error');
+      }).finally(function() {
+        setProgress(0);
+        btn.disabled = false;
+        btn.textContent = 'Publicar no Facebook';
+      });
     }
 
-    setProgress(0);
-    btn.classList.remove('loading');
-    btn.textContent = 'Publicar no Facebook';
-    btn.classList.add('active');
+    if (selectedFile) {
+      var moderatePromise = selectedFile.type.indexOf('video') === 0
+        ? moderateVideo(selectedFile)
+        : moderateFile(selectedFile);
+      moderatePromise.then(function(result) {
+        if (!result.safe) {
+          showToast(result.reason, 'error');
+          setProgress(0);
+          btn.disabled = false;
+          btn.textContent = 'Publicar no Facebook';
+          return;
+        }
+        doPost();
+      });
+    } else {
+      doPost();
+    }
   }
-  // Fix celular
-  document.getElementById('postBtn').addEventListener('touchend', function(e) {
-    e.preventDefault();
-    publish();
-  });
+
+  // Botão publicar - múltiplos eventos para compatibilidade mobile
+  var postBtn = document.getElementById('postBtn');
+  postBtn.addEventListener('click', publish);
+  postBtn.addEventListener('touchstart', function(e) { e.preventDefault(); publish(); }, { passive: false });
 </script>
 </body>
 </html>
