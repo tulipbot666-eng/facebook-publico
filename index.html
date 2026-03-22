@@ -208,6 +208,30 @@
 
   let selectedFile = null;
 
+  // ── LIMITE DE POSTS ──
+  function checkRateLimit() {
+    const now = Date.now();
+    const key = 'posts_log';
+    let log = [];
+    try { log = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+    // Remove posts mais antigos que 1 hora
+    log = log.filter(t => now - t < 3600000);
+    if (log.length >= 3) {
+      const oldest = log[0];
+      const waitMin = Math.ceil((3600000 - (now - oldest)) / 60000);
+      return { allowed: false, waitMin };
+    }
+    return { allowed: true, log };
+  }
+
+  function registerPost() {
+    const key = 'posts_log';
+    let log = [];
+    try { log = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+    log.push(Date.now());
+    try { localStorage.setItem(key, JSON.stringify(log)); } catch(e) {}
+  }
+
   // ── FACEBOOK SDK ──
   window.fbAsyncInit = function() {
     FB.init({ appId: '1315508457306801', xfbml: true, version: 'v25.0' });
@@ -305,8 +329,25 @@
     const text = document.getElementById('postText').value.trim();
     if (!text && !selectedFile) return;
 
+    // Verifica limite
+    const limit = checkRateLimit();
+    if (!limit.allowed) {
+      showToast(`⏱️ Limite atingido! Aguarde ${limit.waitMin} min para postar novamente.`, 'error');
+      return;
+    }
+
+    // Limite de 3 posts por dia
+    if (!canPost()) {
+      showToast('⛔ Você já postou 3 vezes hoje! Volte amanhã.', 'error');
+      return;
+    }
+
     const fullText = (text || '') + SITE_LINK;
     const btn = document.getElementById('postBtn');
+
+    // Verifica limite
+    if (!checkPostLimit()) return;
+
     btn.classList.add('loading');
     setProgress(10);
 
@@ -360,6 +401,7 @@
 
       if (data.id || data.post_id) {
         setProgress(100);
+        registerPost();
         showToast('✅ Publicado no Facebook!', 'success');
         closeModal();
         setTimeout(() => { if (window.FB) FB.XFBML.parse(); }, 2000);
