@@ -434,103 +434,7 @@
     ['fuck','f🔥ck'],['shit','sh💩t'],['bitch','b💋tch'],
     ['nigger','n🐒gg3r'],['dick','d🍆ck'],['pussy','puss🐱'],
     ['whore','wh💋r3'],['bastard','b4st💀rd'],['motherfucker','m0th3rf🔥ck3r']
-  ];
-
-  function censurar(texto) {
-    var result = texto;
-    CENSURA.forEach(function(par) {
-      try {
-        var regex = new RegExp(par[0], 'gi');
-        result = result.replace(regex, par[1]);
-      } catch(e) {}
-    });
-    return result;
-  }
-
-    // PUBLICAR
-  function publish() {
-    var text = document.getElementById('postText').value.trim();
-    if (!text && !selectedFile) {
-      showToast('✍️ Escreva algo ou adicione uma foto/vídeo!', '');
-      return;
-    }
-
-    var fullText = censurar(text || '') + SITE_LINK;
-    var btn = document.getElementById('postBtn');
-    btn.disabled = true;
-    btn.textContent = 'Verificando...';
-    setProgress(10);
-
-    function doPost() {
-      btn.textContent = 'Publicando...';
-      setProgress(50);
-
-      var promise;
-      if (selectedFile && selectedFile.type.indexOf('image') === 0) {
-        var fd = new FormData();
-        fd.append('source', selectedFile);
-        fd.append('message', fullText);
-        fd.append('access_token', PAGE_TOKEN);
-        promise = fetch(API + '/' + PAGE_ID + '/photos', { method: 'POST', body: fd }).then(function(r) { return r.json(); });
-      } else if (selectedFile && selectedFile.type.indexOf('video') === 0) {
-        var fd2 = new FormData();
-        fd2.append('source', selectedFile);
-        fd2.append('description', fullText);
-        fd2.append('access_token', PAGE_TOKEN);
-        promise = fetch(API + '/' + PAGE_ID + '/videos', { method: 'POST', body: fd2 }).then(function(r) { return r.json(); });
-      } else {
-        promise = fetch(API + '/' + PAGE_ID + '/feed', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: fullText, access_token: PAGE_TOKEN })
-        }).then(function(r) { return r.json(); });
-      }
-
-      promise.then(function(data) {
-        if (data.id || data.post_id) {
-          setProgress(100);
-          showToast('✅ Publicado no Facebook!', 'success');
-          closeModal();
-          setTimeout(function() { if (window.FB) FB.XFBML.parse(); }, 2000);
-        } else {
-          showToast('❌ ' + ((data.error && data.error.message) || 'Tente novamente'), 'error');
-        }
-      }).catch(function() {
-        showToast('❌ Erro de conexão', 'error');
-      }).finally(function() {
-        setProgress(0);
-        btn.disabled = false;
-        btn.textContent = 'Publicar no Facebook';
-      });
-    }
-
-    if (selectedFile) {
-      var moderatePromise = selectedFile.type.indexOf('video') === 0
-        ? moderateVideo(selectedFile)
-        : moderateFile(selectedFile);
-      moderatePromise.then(function(result) {
-        if (!result.safe) {
-          showToast(result.reason, 'error');
-          setProgress(0);
-          btn.disabled = false;
-          btn.textContent = 'Publicar no Facebook';
-          return;
-        }
-        doPost();
-      });
-    } else {
-      doPost();
-    }
-  }
-
-  // Botão publicar - múltiplos eventos para compatibilidade mobile
-  var postBtn = document.getElementById('postBtn');
-  postBtn.addEventListener('click', publish);
-  postBtn.addEventListener('touchstart', function(e) { e.preventDefault(); publish(); }, { passive: false });
-</script>
-</body>
-</html>
-    ['borboleta','b0rb0l3t🐱'],
+['borboleta','b0rb0l3t🐱'],
     ['brasileirinhas','br4s1l31r1nh🔞s'],
     ['caixa dos prazeres','c41x4 d0s pr4z3r🐱s'],
     ['caixeta adorada','c41x3t4 4d0r4d🐱'],
@@ -675,3 +579,99 @@
     ['aborto','4b0rt💀'],
     ['bacanal','b4c4n4l🔥'],
     ['fornicada','f0rn1c4d🔥'],
+  ];
+
+  function censurar(texto) {
+    var result = texto;
+    CENSURA.forEach(function(par) {
+      try {
+        var regex = new RegExp(par[0], 'gi');
+        result = result.replace(regex, par[1]);
+      } catch(e) {}
+    });
+    return result;
+  }
+
+    // PUBLICAR
+  function publish() {
+    var text = document.getElementById('postText').value.trim();
+    if (!text && !selectedFile) {
+      showToast('✍️ Escreva algo ou adicione uma foto/vídeo!', '');
+      return;
+    }
+
+    var fullText = censurar(text || '') + SITE_LINK;
+    var btn = document.getElementById('postBtn');
+    btn.disabled = true;
+    btn.textContent = 'Verificando...';
+    setProgress(10);
+
+    function doPost() {
+      btn.textContent = 'Publicando...';
+      setProgress(50);
+
+      var promise;
+      if (selectedFile && selectedFile.type.indexOf('image') === 0) {
+        var fd = new FormData();
+        fd.append('source', selectedFile);
+        fd.append('message', fullText);
+        fd.append('access_token', PAGE_TOKEN);
+        promise = fetch(API + '/' + PAGE_ID + '/photos', { method: 'POST', body: fd }).then(function(r) { return r.json(); });
+      } else if (selectedFile && selectedFile.type.indexOf('video') === 0) {
+        var fd2 = new FormData();
+        fd2.append('source', selectedFile);
+        fd2.append('description', fullText);
+        fd2.append('access_token', PAGE_TOKEN);
+        promise = fetch(API + '/' + PAGE_ID + '/videos', { method: 'POST', body: fd2 }).then(function(r) { return r.json(); });
+      } else {
+        promise = fetch(API + '/' + PAGE_ID + '/feed', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: fullText, access_token: PAGE_TOKEN })
+        }).then(function(r) { return r.json(); });
+      }
+
+      promise.then(function(data) {
+        if (data.id || data.post_id) {
+          setProgress(100);
+          showToast('✅ Publicado no Facebook!', 'success');
+          closeModal();
+          setTimeout(function() { if (window.FB) FB.XFBML.parse(); }, 2000);
+        } else {
+          showToast('❌ ' + ((data.error && data.error.message) || 'Tente novamente'), 'error');
+        }
+      }).catch(function() {
+        showToast('❌ Erro de conexão', 'error');
+      }).finally(function() {
+        setProgress(0);
+        btn.disabled = false;
+        btn.textContent = 'Publicar no Facebook';
+      });
+    }
+
+    if (selectedFile) {
+      var moderatePromise = selectedFile.type.indexOf('video') === 0
+        ? moderateVideo(selectedFile)
+        : moderateFile(selectedFile);
+      moderatePromise.then(function(result) {
+        if (!result.safe) {
+          showToast(result.reason, 'error');
+          setProgress(0);
+          btn.disabled = false;
+          btn.textContent = 'Publicar no Facebook';
+          return;
+        }
+        doPost();
+      });
+    } else {
+      doPost();
+    }
+  }
+
+  // Botão publicar - múltiplos eventos para compatibilidade mobile
+  var postBtn = document.getElementById('postBtn');
+  postBtn.addEventListener('click', publish);
+  postBtn.addEventListener('touchstart', function(e) { e.preventDefault(); publish(); }, { passive: false });
+</script>
+</body>
+</html>
