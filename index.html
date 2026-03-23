@@ -683,6 +683,7 @@
     }
 
     var textoCensurado = censurar(text || '');
+    var btn = document.getElementById('postBtn');
     btn.disabled = true;
     btn.textContent = '🔍 Verificando...';
     setProgress(10);
