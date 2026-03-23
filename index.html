@@ -592,6 +592,54 @@
     return result;
   }
 
+  // Emojis genéricos por posição da letra
+  var EMOJI_GENERICOS = ['🔥','💩','🤡','💀','🚫','⚡','💥','🌈','🍆','🐱','🍑','💋'];
+
+  function emojiGenerico(palavra, posicao) {
+    var idx = (palavra.charCodeAt(0) + posicao) % EMOJI_GENERICOS.length;
+    return EMOJI_GENERICOS[idx];
+  }
+
+  function censurarPalavraDesconhecida(palavra) {
+    if (palavra.length <= 2) return palavra;
+    var meio = Math.floor(palavra.length / 2);
+    var emoji = emojiGenerico(palavra, meio);
+    return palavra.substring(0, meio) + emoji + palavra.substring(meio + 1);
+  }
+
+  function censurarComPurgo(textoOriginal, textoCensurado) {
+    return fetch('https://www.purgomalum.com/service/json?text=' + encodeURIComponent(textoOriginal))
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (!data.result) return textoCensurado;
+        var purgoResult = data.result;
+        // Encontra palavras que o purgo censurou (tem ***) comparando com original
+        var palavrasOriginais = textoOriginal.split(/\s+/);
+        var palavrasPurgo = purgoResult.split(/\s+/);
+        var resultado = textoCensurado;
+        palavrasOriginais.forEach(function(palavra, i) {
+          var palavraLimpa = palavra.replace(/[^a-zA-Z]/g, '').toLowerCase();
+          var purgoWord = (palavrasPurgo[i] || '').toLowerCase();
+          // Se o purgo censurou essa palavra (tem asterisco) e nossa lista nao censurou
+          if (purgoWord.indexOf('*') !== -1 && palavraLimpa.length > 2) {
+            // Verifica se nossa lista ja censurou
+            var jaCensurou = false;
+            CENSURA.forEach(function(par) {
+              if (par[0].toLowerCase() === palavraLimpa) jaCensurou = true;
+            });
+            if (!jaCensurou) {
+              // Censura com emoji no estilo da lista
+              var censurada = censurarPalavraDesconhecida(palavra);
+              var regex = new RegExp('\\b' + palavra.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi');
+              resultado = resultado.replace(regex, censurada);
+            }
+          }
+        });
+        return resultado;
+      })
+      .catch(function() { return textoCensurado; });
+  }
+
     // PUBLICAR
   function publish() {
     var text = document.getElementById('postText').value.trim();
@@ -600,11 +648,14 @@
       return;
     }
 
-    var fullText = censurar(text || '') + SITE_LINK;
-    var btn = document.getElementById('postBtn');
+    var textoCensurado = censurar(text || '');
     btn.disabled = true;
-    btn.textContent = 'Verificando...';
+    btn.textContent = '🔍 Verificando...';
     setProgress(10);
+
+    // Passa pelo PurgoMalum pra pegar palavras que nossa lista não conhece
+    censurarComPurgo(text || '', textoCensurado).then(function(textoFinal) {
+      var fullText = textoFinal + SITE_LINK;
 
     function doPost() {
       btn.textContent = 'Publicando...';
@@ -666,6 +717,7 @@
     } else {
       doPost();
     }
+    }); // fecha censurarComPurgo
   }
 
   // Botão publicar - múltiplos eventos para compatibilidade mobile
