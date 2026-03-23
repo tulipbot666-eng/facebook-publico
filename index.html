@@ -292,65 +292,103 @@
     });
   }
 
-  // ── CENSURA COM EMOJIS CONDIZENTES ──
-  var CENSURA = {
+  // ── CENSURA COM EMOJIS ──
+  var CENSURA = [
     // Palavrões PT
-    'filho da puta':'f1lh0 d4 put💋','vai se foder':'v41 s3 f🔥d3r',
-    'vai tomar no cu':'v41 t0m4r n0 c🍑0',
-    'porra':'p0💦r4','caralho':'c4r4🔥h0','puta':'pu💋4',
-    'buceta':'buc3🐱4','merda':'m3💩d4','pinto':'p1n🍆0',
-    'piroca':'p1r0🍆4','xoxota':'x0x0🐱4','foder':'f0🔥d3r',
-    'foda':'f0🔥4','arrombado':'4rr0mb💥d0',
-    'viado':'v14🏳️‍🌈0','veado':'v34🏳️‍🌈0','travesti':'tr4v3s🏳️‍🌈1','traveco':'tr4v3🏳️‍🌈0',
-    'cu ':'c🍑0 ','bunda':'bun🍑4','rabo':'r4🍑0',
-    'vagina':'v4g1🐱4','penis':'p3n🍆s','pênis':'p3n🍆s',
-    'tesao':'t3s🔥0','tesão':'t3s🔥0','gozo':'g0💦0',
-    'siririca':'s1r1r🐱c4','punheta':'punh🍆t4',
-    'putaria':'put4r🔥4','safada':'s4f4💋4','safado':'s4f4💋0',
-    'gozar':'g0z💦r','transar':'tr4ns🔥r','trepar':'tr3p🔥r',
-    'cuzao':'cuz🍑0','cuzão':'cuz🍑0','corno':'c0rn🦷',
-    'idiota':'1d10🤡4','imbecil':'1mb3c🤡l','retardado':'r3t4rd🤡d0',
-    'otario':'0t4r🤡0','otário':'0t4r🤡0',
-    'fdp':'f💩p','vsf':'v💩f','pqp':'p💩p','tnc':'t💩c',
-    'desgraça':'d3sgr💀ç4','desgraca':'d3sgr💀c4',
-    'lixo':'l🗑️x0','escória':'3sc0r💀4','escoria':'3sc0r💀4',
-    'prostituta':'pr0st1t💋t4','vagabunda':'v4g4bund🍑',
-    'hemorroida':'h3m0rr💩1d4','perereca':'p3r3r🐱c4',
-    // Ofensas raciais/sociais
-    'macaco':'m4c4🐒0','favelado':'f4v3l🏚️d0','nordestino':'n0rd3st🌵n0',
-    'negro':'n3gr✊','preto':'pr3t✊','judeu':'jud✡️u','judeus':'jud✡️us',
-    'cigano':'c1g4n🔮','odeio':'0d😡10','nojento':'n0j3nt🤢0',
-    // LGBT
-    'gay':'g🏳️‍🌈y','sapatao':'s4p4t🏳️‍🌈0','sapatão':'s4p4t🏳️‍🌈0','bicha':'b1ch🏳️‍🌈',
+    ['filho da puta', 'f1lh0 d4 put💋'],
+    ['vai se foder', 'v41 s3 f🔥d3r'],
+    ['porra', 'p0💦r4'],
+    ['caralho', 'c4r4🔥h0'],
+    ['puta', 'pu💋4'],
+    ['buceta', 'buc3🐱4'],
+    ['merda', 'm3💩d4'],
+    ['pinto', 'p1n🍆0'],
+    ['piroca', 'p1r0🍆4'],
+    ['xoxota', 'x0x0🐱4'],
+    ['foder', 'f0🔥d3r'],
+    ['foda', 'f0🔥4'],
+    ['arrombado', '4rr0mb💥d0'],
+    ['viado', 'v14🌈0'],
+    ['veado', 'v34🌈0'],
+    ['travesti', 'tr4v3s🌈1'],
+    ['traveco', 'tr4v3🌈0'],
+    ['bunda', 'bun🍑4'],
+    ['rabo', 'r4🍑0'],
+    ['vagina', 'v4g1🐱4'],
+    ['penis', 'p3n🍆s'],
+    ['gozo', 'g0💦0'],
+    ['punheta', 'punh🍆t4'],
+    ['putaria', 'put4r🔥4'],
+    ['safada', 's4f4💋4'],
+    ['safado', 's4f4💋0'],
+    ['gozar', 'g0z💦r'],
+    ['transar', 'tr4ns🔥r'],
+    ['trepar', 'tr3p🔥r'],
+    ['corno', 'c0rn🦷'],
+    ['idiota', '1d10🤡4'],
+    ['imbecil', '1mb3c🤡l'],
+    ['retardado', 'r3t4rd🤡d0'],
+    ['otario', '0t4r🤡0'],
+    ['fdp', 'f💩p'],
+    ['vsf', 'v💩f'],
+    ['pqp', 'p💩p'],
+    ['desgraca', 'd3sgr💀c4'],
+    ['lixo', 'l🗑x0'],
+    ['prostituta', 'pr0st1t💋t4'],
+    ['hemorroida', 'h3m0rr💩1d4'],
+    ['perereca', 'p3r3r🐱c4'],
+    // Ofensas raciais
+    ['macaco', 'm4c4🐒0'],
+    ['favelado', 'f4v3l🏚0'],
+    ['nordestino', 'n0rd3st🌵n0'],
+    ['negro', 'n3gr✊'],
+    ['judeu', 'jud✡u'],
+    ['cigano', 'c1g4n🔮'],
+    ['odeio', '0d😡10'],
+    ['nojento', 'n0j3nt🤢0'],
     // Nazi/extremismo
-    'hitler':'h1tl☠️r','nazismo':'n4z☠️sm0','nazi':'n4z☠️','nazista':'n4z☠️st4',
-    'terrorismo':'t3rr0r💣sm0','terrorista':'t3rr0r💣st4','jihad':'j1h💣d',
-    'kkk':'k💀k','ku klux':'ku kl💀x',
+    ['hitler', 'h1tl☠r'],
+    ['nazismo', 'n4z☠sm0'],
+    ['nazista', 'n4z☠st4'],
+    ['nazi', 'n4z☠'],
+    ['terrorismo', 't3rr0r💣sm0'],
+    ['terrorista', 't3rr0r💣st4'],
+    ['jihad', 'j1h💣d'],
     // Pedofilia
-    'pedofilia':'p3d0f🚨l14','pedofilo':'p3d0f🚨l0','pedófilo':'p3d0f🚨l0',
-    // Suicídio/violência
-    'suicidio':'su1c💀d10','suicídio':'su1c💀d10',
-    'assassinar':'4ss4ss🔫n4r','estupro':'3stup😡0','estuprar':'3stup😡4r',
-    'matar':'m4t🔫r','morra':'m0rr💀','morte':'m0rt💀',
-    // Pornô
-    'porno':'p0rn🔞','pornografia':'p0rn0gr4f🔞4',
+    ['pedofilia', 'p3d0f🚨l14'],
+    ['pedofilo', 'p3d0f🚨l0'],
+    // Violencia
+    ['suicidio', 'su1c💀d10'],
+    ['assassinar', '4ss4ss🔫n4r'],
+    ['estupro', '3stup😡0'],
+    ['matar', 'm4t🔫r'],
+    ['morra', 'm0rr💀'],
+    // Porno
+    ['porno', 'p0rn🔞'],
+    ['pornografia', 'p0rn0gr4f🔞4'],
     // Drogas
-    'cocaina':'c0c4❄️n4','cocaína':'c0c4❄️n4','maconha':'m4c0🌿h4',
-    'crack':'cr4💊k','heroina':'h3r0💉n4','heroína':'h3r0💉n4',
-    'droga':'dr0g💊','drogas':'dr0g💊s','vicio':'v1c💊0','vício':'v1c💊0',
-    // Inglês
-    'fuck':'f🔥ck','shit':'sh💩t','bitch':'b💋tch','nigger':'n🐒gg3r',
-    'asshole':'4ssh🍑l3','dick':'d🍆ck','pussy':'puss🐱','cunt':'c🐱nt',
-    'faggot':'f4gg🏳️‍🌈t','whore':'wh💋r3','bastard':'b4st💀rd',
-    'motherfucker':'m0th3rf🔥ck3r'
-  };
+    ['cocaina', 'c0c4❄n4'],
+    ['maconha', 'm4c0🌿h4'],
+    ['crack', 'cr4💊k'],
+    ['heroina', 'h3r0💉n4'],
+    ['droga', 'dr0g💊'],
+    // Ingles
+    ['fuck', 'f🔥ck'],
+    ['shit', 'sh💩t'],
+    ['bitch', 'b💋tch'],
+    ['nigger', 'n🐒gg3r'],
+    ['dick', 'd🍆ck'],
+    ['pussy', 'puss🐱'],
+    ['whore', 'wh💋r3'],
+    ['bastard', 'b4st💀rd']
+  ];
 
   function censurar(texto) {
     var result = texto;
-    for (var palavra in CENSURA) {
-      var regex = new RegExp(palavra, 'gi');
-      result = result.replace(regex, CENSURA[palavra]);
-    }
+    CENSURA.forEach(function(par) {
+      var regex = new RegExp(par[0], 'gi');
+      result = result.replace(regex, par[1]);
+    });
     return result;
   }
 
