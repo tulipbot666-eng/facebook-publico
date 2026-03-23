@@ -581,12 +581,46 @@
     ['fornicada','f0rn1c4d🔥'],
   ];
 
+  function normalizarTexto(texto) {
+    // Remove letras repetidas (bucetaaaa -> buceta)
+    var semRepetidas = texto.replace(/(.)\1{2,}/gi, '$1$1');
+    // Remove traços, pontos e underscores entre letras (b-u-c-e-t-a -> buceta)
+    var semTracas = semRepetidas.replace(/([a-zA-ZÀ-ú])[-_.]([a-zA-ZÀ-ú])/g, '$1$2');
+    // Remove espaços entre letras individuais (b u c e t a -> buceta)
+    var semEspacos = semTracas.replace(/\b([a-zA-ZÀ-ú]) (?=[a-zA-ZÀ-ú] )/g, '$1');
+    // Leetspeak reverso (3->e, 4->a, 0->o, 1->i, @->a, $->s)
+    var semLeet = semEspacos
+      .replace(/3/g, 'e')
+      .replace(/4/g, 'a')
+      .replace(/0/g, 'o')
+      .replace(/1/g, 'i')
+      .replace(/@/g, 'a')
+      .replace(/\$/g, 's')
+      .replace(/5/g, 's')
+      .replace(/7/g, 't')
+      .replace(/9/g, 'g')
+      .replace(/8/g, 'b');
+    return semLeet;
+  }
+
   function censurar(texto) {
-    var result = texto;
+    // Normaliza uma cópia pra detectar palavras
+    var textoNormal = normalizarTexto(texto);
+    var result = texto; // mantém o original pra substituir
     CENSURA.forEach(function(par) {
       try {
-        var regex = new RegExp(par[0], 'gi');
-        result = result.replace(regex, par[1]);
+        // Tenta no texto normalizado
+        var regexNormal = new RegExp(par[0], 'gi');
+        if (regexNormal.test(textoNormal)) {
+          // Se achou no normalizado, substitui no original também
+          var regex = new RegExp(par[0], 'gi');
+          result = result.replace(regex, par[1]);
+          textoNormal = textoNormal.replace(regexNormal, par[1]);
+        } else {
+          // Tenta direto no original também
+          var regex2 = new RegExp(par[0], 'gi');
+          result = result.replace(regex2, par[1]);
+        }
       } catch(e) {}
     });
     return result;
