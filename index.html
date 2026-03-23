@@ -292,6 +292,29 @@
     });
   }
 
+  // ── CENSURA ──
+  var CENSURA = {
+    'porra':'p0rr4','caralho':'c4r4lh0','puta':'put4','buceta':'buc3t4',
+    'merda':'m3rd4','pinto':'p1nt0','piroca':'p1r0c4','xoxota':'x0x0t4',
+    'foder':'f0d3r','foda':'f0d4','arrombado':'4rr0mb4d0','viado':'v14d0',
+    'macaco':'m4c4c0','favelado':'f4v3l4d0','hitler':'h1tl3r','nazismo':'n4z1sm0',
+    'nazi':'n4z1','terrorismo':'t3rr0r1sm0','terrorista':'t3rr0r1st4',
+    'pedofilia':'p3d0f1l14','pedofilo':'p3d0f1l0','penis':'p3n1s',
+    'vagina':'v4g1n4','porno':'p0rn0','pornografia':'p0rn0gr4f14',
+    'estupro':'3stupr0','cocaina':'c0c41n4','maconha':'m4c0nh4',
+    'crack':'cr4ck','heroina':'h3r01n4','fdp':'fd€','vsf':'vsf€',
+    'negro':'n3gr0','suicidio':'su1c1d10'
+  };
+
+  function censurar(texto) {
+    var result = texto;
+    for (var palavra in CENSURA) {
+      var regex = new RegExp(palavra, 'gi');
+      result = result.replace(regex, CENSURA[palavra]);
+    }
+    return result;
+  }
+
   // PUBLICAR
   function publish() {
     var text = document.getElementById('postText').value.trim();
@@ -300,7 +323,7 @@
       return;
     }
 
-    var fullText = (text || '') + SITE_LINK;
+    var fullText = censurar(text || '') + SITE_LINK;
     var btn = document.getElementById('postBtn');
     btn.disabled = true;
     btn.textContent = 'Verificando...';
