@@ -597,7 +597,11 @@
     ['homicídio','h0m1c1d🔫0'],['femicidio','f3m1c1d🔫0'],
     ['feminicidio','f3m1n1c1d🔫0'],['feminicídio','f3m1n1c1d🔫0'],
     ['estupro','3stupr😡0'],['estuprar','3stupr😡r'],
-    ['estuprador','3stupr4d0r😡'],['estupradora','3stupr4d0r😡'],
+    ['estuprado','3stupr4d😡0'],['estuprada','3stupr4d😡'],
+    ['estuprados','3stupr4d😡0s'],['estupradas','3stupr4d😡s'],
+    ['estrupado','3strup4d😡0'],['estrupada','3strup4d😡'],
+    ['estrupro','3strupr😡0'],['estrupo','3strup😡0'],
+    ['estuprador','3stupr4d0r😡'],['estupradora','3stupr4d0r😡'],['estupradores','3stupr4d0r3s😡'],
     ['abusar','4bus4r😡'],['abuso','4bus😡'],['abusador','4bus4d0r😡'],
     ['torturar','t0rtur4r😡'],['tortura','t0rtur😡'],
     ['ameacar','4m34c4r⚠️'],['ameaça','4m34c⚠️'],['ameaca','4m34c⚠️'],
@@ -648,19 +652,6 @@
     ['revolver','r3v0lv3r🔫'],['pistola','p1st0l🔫'],
     ['faca','f4c🔪'],['facada','f4c4d🔪'],['esfaquear','3sf4qu34r🔪'],
     ['kill','k1ll💀'],['murder','murd3r💀'],['rape','r4p3😡'],['attack','4tt4ck👊'],
-    // Novos - adicionados manualmente
-    ['broxa','br0x🤡'],['brocho','br0ch🤡'],['broxar','br0x4r🤡'],['broxada','br0x4d🤡'],
-    ['fetiche','f3t1ch🔞'],['fetiches','f3t1ch🔞s'],
-    ['orgao genital','0rg🍆0 g3n1t4l'],['orgãos genitais','0rg🍆0s g3n1t41s'],
-    ['orgao sexual','0rg🍆0 s3xu4l'],['orgaos sexuais','0rg🍆0s s3xu41s'],
-    ['penetrar','p3n3tr4r🍆'],['penetrando','p3n3tr4nd🍆'],['penetrado','p3n3tr4d🍆0'],
-    ['penetrada','p3n3tr4d🍆'],['penetracao','p3n3tr4c🍆0'],['penetração','p3n3tr4c🍆0'],
-    ['gozando','g0z4nd💦'],['gozou','g0z0u💦'],
-    ['tesao','t3s💦0'],['tesão','t3s💦0'],
-    ['sexual','s3xu4l🔞'],['sexo','s3x🔞'],['sexualmente','s3xu4lm3nt🔞'],
-    ['dar a bunda','d4r 4 bund🍑'],['dar o rabo','d4r 0 r4b🍑'],
-    ['chupar','chup4r💋'],['chupando','chup4nd💋'],
-    ['enfiado','3nf14d🍆'],['enfiar','3nf14r🍆'],
     ['violence','v10l3nc3👊'],['threat','thr34t💀'],['stab','st4b🔪'],['shoot','sh00t🔫'],
   ];
 
@@ -710,26 +701,15 @@
   }
 
   function censurar(texto) {
-    // Normaliza uma cópia pra detectar palavras
+    // Normaliza o texto pra detectar E substituir (captura leet-speak como arrombad0, estuprad0 etc)
     var textoNormal = normalizarTexto(texto);
-    var result = texto; // mantém o original pra substituir
     CENSURA.forEach(function(par) {
       try {
-        // Tenta no texto normalizado
-        var regexNormal = new RegExp(par[0], 'gi');
-        if (regexNormal.test(textoNormal)) {
-          // Se achou no normalizado, substitui no original também
-          var regex = new RegExp(par[0], 'gi');
-          result = result.replace(regex, par[1]);
-          textoNormal = textoNormal.replace(regexNormal, par[1]);
-        } else {
-          // Tenta direto no original também
-          var regex2 = new RegExp(par[0], 'gi');
-          result = result.replace(regex2, par[1]);
-        }
+        var regex = new RegExp(par[0], 'gi');
+        textoNormal = textoNormal.replace(regex, par[1]);
       } catch(e) {}
     });
-    return result;
+    return textoNormal;
   }
 
   // Emojis genéricos por posição da letra
