@@ -436,8 +436,8 @@
     ['fdp','f💩p'],['vsf','v💩f'],['pqp','p💩p'],['tnc','t💩c'],
     ['fuck','f🔥ck'],['shit','sh💩t'],['bitch','b💋tch'],
     ['nigger','n🐒gg3r'],['dick','d🍆ck'],['pussy','puss🐱'],
-    ['whore','wh💋r3'],['bastard','b4st💀rd'],['motherfucker','m0th3rf🔥ck3r']
-['borboleta','b0rb0l3t🐱'],
+    ['whore','wh💋r3'],['bastard','b4st💀rd'],['motherfucker','m0th3rf🔥ck3r'],
+    ['borboleta','b0rb0l3t🐱'],
     ['brasileirinhas','br4s1l31r1nh🔞s'],
     ['caixa dos prazeres','c41x4 d0s pr4z3r🐱s'],
     ['caixeta adorada','c41x3t4 4d0r4d🐱'],
@@ -701,7 +701,7 @@
   }
 
   function censurar(texto) {
-    // Normaliza o texto pra detectar E substituir (captura leet-speak como arrombad0, estuprad0 etc)
+    // Normaliza o texto pra capturar leet-speak (arrombad0, estuprad0, etc)
     var textoNormal = normalizarTexto(texto);
     CENSURA.forEach(function(par) {
       try {
