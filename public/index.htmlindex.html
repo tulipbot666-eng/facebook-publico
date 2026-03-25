@@ -39,14 +39,12 @@
   .tab { padding: 12px 16px; font-weight: 700; font-size: 15px; border-bottom: 3px solid transparent; color: var(--sec); }
   .tab.active { color: var(--blue); border-color: var(--blue); }
   .main { max-width: 680px; margin: 0 auto 32px; padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
-
   .yt-banner { background: linear-gradient(135deg, #ff0000, #ff6b6b); border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow); }
   .yt-banner-icon { font-size: 40px; flex-shrink: 0; }
   .yt-banner-text { flex: 1; }
   .yt-banner-title { color: #fff; font-size: 16px; font-weight: 900; margin-bottom: 4px; }
   .yt-banner-sub { color: rgba(255,255,255,.85); font-size: 13px; font-weight: 600; line-height: 1.4; }
   .yt-banner-btn { background: #fff; color: var(--yt); border-radius: 20px; padding: 8px 16px; font-family: inherit; font-size: 13px; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
-
   .post-box { background: var(--white); border-radius: 8px; box-shadow: var(--shadow); padding: 12px 16px; }
   .post-box-top { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
   .mini-av { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 22px; }
@@ -55,7 +53,6 @@
   .post-actions { display: flex; gap: 4px; }
   .act-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700; color: var(--sec); background: none; border: none; }
   .fb-embed { background: var(--white); border-radius: 8px; box-shadow: var(--shadow); overflow: hidden; padding: 16px; text-align: center; }
-
   .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 200; align-items: flex-end; justify-content: center; }
   .overlay.open { display: flex; }
   .modal { background: var(--white); border-radius: 16px 16px 0 0; width: 100%; max-width: 500px; max-height: 92vh; overflow-y: auto; box-shadow: 0 -4px 32px rgba(0,0,0,.2); }
@@ -67,12 +64,10 @@
   .modal-badge { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 2px 8px; font-size: 12px; font-weight: 700; margin-top: 3px; display: inline-block; }
   textarea.post-ta { width: 100%; min-height: 100px; border: none; outline: none; resize: none; font-family: inherit; font-size: 18px; color: var(--text); background: transparent; line-height: 1.4; }
   textarea.post-ta::placeholder { color: #bcc0c4; }
-
   .yt-notice { background: #fff3f3; border: 1px solid #ffcccc; border-radius: 8px; padding: 10px 14px; margin: 10px 0; display: flex; align-items: flex-start; gap: 10px; }
   .yt-notice-icon { font-size: 20px; flex-shrink: 0; }
   .yt-notice-text { font-size: 13px; color: #333; font-weight: 600; line-height: 1.5; }
   .yt-notice-text a { color: var(--yt); text-decoration: none; font-weight: 800; }
-
   .media-area { border: 2px dashed var(--border); border-radius: 10px; margin: 10px 0; padding: 16px; text-align: center; cursor: pointer; position: relative; }
   .media-area input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
   .media-preview { margin: 10px 0; border-radius: 8px; overflow: hidden; position: relative; }
@@ -87,7 +82,6 @@
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.success { background: var(--green); }
   .toast.error { background: var(--red); }
-
   @media (min-width: 601px) {
     .overlay { align-items: center; }
     .modal { border-radius: 12px; }
@@ -225,9 +219,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  // ✅ WORKER URL - token fica escondido no Cloudflare, não aparece aqui!
   var WORKER_URL = 'https://fb-proxy.tulipbot666.workers.dev';
-
   var PAGE_ID = '1030632680135061';
   var SITE_LINK = '\n\n📢 Esta é uma página pública — qualquer ze bunda pode postar! Acesse https://facebook-publico-esse.onrender.com e compartilhe o que quiser.';
   var SE_USER = '1547677886';
@@ -362,18 +354,75 @@
       alert('🔗 Links não são permitidos!\n\nColoque um espaço no link para compartilhar.\nEx: "face book.com" ou "youtu be.com"');
       return;
     }
-    var textoCensurado = censurar(text || '');
-    var fullText = textoCensurado + SITE_LINK;
+
     var btn = document.getElementById('postBtn');
     btn.disabled = true;
-    btn.textContent = '🔍 Verificando...';
+    btn.textContent = '🔍 Verificando texto...';
     setProgress(10);
 
-    function doPost() {
+    // 1. Censura local primeiro
+    var textoCensurado = censurar(text || '');
+
+    // 2. Sightengine detecta o que sobrou e censura também
+    var params = new URLSearchParams({
+      text: textoCensurado,
+      lang: 'pt',
+      mode: 'rules',
+      api_user: SE_USER,
+      api_secret: SE_SECRET
+    });
+
+    fetch('https://api.sightengine.com/1.0/text/check.json?' + params)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var finalText = textoCensurado;
+
+        // Se detectou palavras ruins, substitui por versão censurada
+        if (data.status === 'success' && data.profanity && data.profanity.matches && data.profanity.matches.length > 0) {
+          data.profanity.matches.forEach(function(match) {
+            var palavra = match.match;
+            var censurada = palavra[0] + '*'.repeat(Math.max(palavra.length - 1, 1));
+            var regex = new RegExp(palavra.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+            finalText = finalText.replace(regex, censurada);
+          });
+        }
+
+        continuarPublicacao(finalText);
+      })
+      .catch(function() {
+        // Se a API de texto falhar, continua com censura local apenas
+        continuarPublicacao(textoCensurado);
+      });
+
+    function continuarPublicacao(finalText) {
+      var fullText = finalText + SITE_LINK;
+
+      // 3. Modera mídia se tiver
+      if (selectedFile) {
+        btn.textContent = '🔍 Verificando mídia...';
+        setProgress(30);
+        var moderatePromise = selectedFile.type.indexOf('video') === 0
+          ? moderateVideo(selectedFile)
+          : moderateFile(selectedFile);
+        moderatePromise.then(function(result) {
+          if (!result.safe) {
+            showToast(result.reason, 'error');
+            setProgress(0);
+            btn.disabled = false;
+            btn.textContent = 'Publicar no Facebook';
+            return;
+          }
+          doPost(fullText);
+        });
+      } else {
+        doPost(fullText);
+      }
+    }
+
+    function doPost(fullText) {
       btn.textContent = 'Publicando...';
       setProgress(50);
 
-      // ✅ Agora chama o Worker, não o Facebook diretamente!
       var fd = new FormData();
       fd.append('message', fullText);
 
@@ -407,24 +456,6 @@
           btn.disabled = false;
           btn.textContent = 'Publicar no Facebook';
         });
-    }
-
-    if (selectedFile) {
-      var moderatePromise = selectedFile.type.indexOf('video') === 0
-        ? moderateVideo(selectedFile)
-        : moderateFile(selectedFile);
-      moderatePromise.then(function(result) {
-        if (!result.safe) {
-          showToast(result.reason, 'error');
-          setProgress(0);
-          btn.disabled = false;
-          btn.textContent = 'Publicar no Facebook';
-          return;
-        }
-        doPost();
-      });
-    } else {
-      doPost();
     }
   }
 
