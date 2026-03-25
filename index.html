@@ -11,7 +11,7 @@
     --blue: #1877f2; --blue-d: #166fe5; --blue-light: #e7f3ff;
     --bg: #f0f2f5; --white: #fff;
     --border: #dddfe2; --text: #1c1e21; --sec: #65676b; --hover: #f2f2f2;
-    --green: #42b72a; --red: #e41e3f;
+    --green: #42b72a; --red: #e41e3f; --yt: #ff0000;
     --shadow: 0 1px 2px rgba(0,0,0,.1), 0 4px 16px rgba(0,0,0,.06);
   }
   body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
@@ -34,10 +34,20 @@
   .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 6px; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; border: none; text-decoration: none; }
   .btn-primary { background: var(--blue); color: #fff; }
   .btn-secondary { background: var(--hover); color: var(--text); border: 1px solid var(--border); }
+  .btn-yt { background: var(--yt); color: #fff; }
   .tabs-bar { border-top: 1px solid var(--border); display: flex; padding: 0 16px; max-width: 940px; margin: 0 auto; }
   .tab { padding: 12px 16px; font-weight: 700; font-size: 15px; border-bottom: 3px solid transparent; color: var(--sec); }
   .tab.active { color: var(--blue); border-color: var(--blue); }
   .main { max-width: 680px; margin: 0 auto 32px; padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
+
+  /* Banner YouTube Shorts */
+  .yt-banner { background: linear-gradient(135deg, #ff0000, #ff6b6b); border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow); }
+  .yt-banner-icon { font-size: 40px; flex-shrink: 0; }
+  .yt-banner-text { flex: 1; }
+  .yt-banner-title { color: #fff; font-size: 16px; font-weight: 900; margin-bottom: 4px; }
+  .yt-banner-sub { color: rgba(255,255,255,.85); font-size: 13px; font-weight: 600; line-height: 1.4; }
+  .yt-banner-btn { background: #fff; color: var(--yt); border-radius: 20px; padding: 8px 16px; font-family: inherit; font-size: 13px; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
+
   .post-box { background: var(--white); border-radius: 8px; box-shadow: var(--shadow); padding: 12px 16px; }
   .post-box-top { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
   .mini-av { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 22px; }
@@ -59,6 +69,13 @@
   .modal-badge { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 2px 8px; font-size: 12px; font-weight: 700; margin-top: 3px; display: inline-block; }
   textarea.post-ta { width: 100%; min-height: 100px; border: none; outline: none; resize: none; font-family: inherit; font-size: 18px; color: var(--text); background: transparent; line-height: 1.4; }
   textarea.post-ta::placeholder { color: #bcc0c4; }
+
+  /* Aviso YouTube no modal */
+  .yt-notice { background: #fff3f3; border: 1px solid #ffcccc; border-radius: 8px; padding: 10px 14px; margin: 10px 0; display: flex; align-items: flex-start; gap: 10px; }
+  .yt-notice-icon { font-size: 20px; flex-shrink: 0; }
+  .yt-notice-text { font-size: 13px; color: #333; font-weight: 600; line-height: 1.5; }
+  .yt-notice-text a { color: var(--yt); text-decoration: none; font-weight: 800; }
+
   .media-area { border: 2px dashed var(--border); border-radius: 10px; margin: 10px 0; padding: 16px; text-align: center; cursor: pointer; position: relative; }
   .media-area input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
   .media-preview { margin: 10px 0; border-radius: 8px; overflow: hidden; position: relative; }
@@ -86,6 +103,8 @@
     .profile-row { transform: translateY(-10px); }
     .main { padding: 0 8px; }
     .live-badge span:not(.dot) { display: none; }
+    .yt-banner { flex-wrap: wrap; }
+    .yt-banner-btn { width: 100%; justify-content: center; }
   }
 </style>
 </head>
@@ -111,6 +130,7 @@
       <div class="profile-actions">
         <button class="btn btn-primary" id="btnAbrirModal">✏️ Criar publicação</button>
         <a class="btn btn-secondary" href="https://www.facebook.com/profile.php?id=1030632680135061" target="_blank">📘 Facebook</a>
+        <a class="btn btn-yt" href="https://www.youtube.com/@YoutubeePublico" target="_blank">▶️ YouTube</a>
       </div>
     </div>
     <div class="tabs-bar">
@@ -122,6 +142,17 @@
 </div>
 
 <div class="main">
+
+  <!-- Banner YouTube Shorts -->
+  <div class="yt-banner">
+    <div class="yt-banner-icon">▶️</div>
+    <div class="yt-banner-text">
+      <div class="yt-banner-title">🎬 Vídeos também vão para o YouTube Shorts!</div>
+      <div class="yt-banner-sub">Todo vídeo postado aqui é enviado automaticamente para o nosso canal do YouTube. Pode levar até 15 minutos para aparecer lá. ⏱️</div>
+    </div>
+    <a class="yt-banner-btn" href="https://www.youtube.com/@YoutubeePublico" target="_blank">▶️ Ver canal</a>
+  </div>
+
   <div class="post-box">
     <div class="post-box-top">
       <div class="mini-av">📢</div>
@@ -169,6 +200,15 @@
       <div style="font-size:12px;color:var(--sec);margin-top:4px;padding:0 2px">
         🔗 Para compartilhar links, coloque um espaço no meio. Ex: <strong>face book.com</strong>
       </div>
+
+      <!-- Aviso YouTube no modal -->
+      <div class="yt-notice">
+        <div class="yt-notice-icon">▶️</div>
+        <div class="yt-notice-text">
+          Vídeos postados aqui são enviados automaticamente para o <a href="https://www.youtube.com/@YoutubeePublico" target="_blank">YouTube Shorts</a>! Pode levar até <strong>15 minutos</strong> para aparecer no canal. ⏱️
+        </div>
+      </div>
+
       <div id="mediaArea" class="media-area">
         <input type="file" id="fileInput" accept="image/*,video/*">
         <div style="font-size:32px;margin-bottom:6px">🖼️</div>
@@ -198,7 +238,6 @@
   var SE_SECRET = 'nSQukXERhxTbctR7AtfxrSNwk2XzCRVP';
   var selectedFile = null;
 
-  // Facebook SDK
   window.fbAsyncInit = function() { FB.init({ appId: '1315508457306801', xfbml: true, version: 'v25.0' }); };
   (function(d,s,id){ var js,fjs=d.getElementsByTagName(s)[0]; if(d.getElementById(id))return; js=d.createElement(s); js.id=id; js.src="https://connect.facebook.net/pt_BR/sdk.js"; fjs.parentNode.insertBefore(js,fjs); }(document,'script','facebook-jssdk'));
 
@@ -226,7 +265,6 @@
 
   function setProgress(p) { document.getElementById('progressBar').style.width = p + '%'; }
 
-  // Botões abrir modal
   document.getElementById('btnAbrirModal').addEventListener('click', openModal);
   document.getElementById('btnTrigger').addEventListener('click', openModal);
   document.getElementById('btnVideo').addEventListener('click', openModal);
@@ -235,12 +273,10 @@
   document.getElementById('btnFechar').addEventListener('click', closeModal);
   document.getElementById('btnRemoveMedia').addEventListener('click', removeMedia);
 
-  // Fechar clicando fora
   document.getElementById('overlay').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
   });
 
-  // Arquivo
   document.getElementById('fileInput').addEventListener('change', function(e) {
     var f = e.target.files[0];
     if (!f) return;
@@ -254,7 +290,39 @@
     document.getElementById('mediaPreview').style.display = 'block';
   });
 
-  // Moderação
+  var CENSURA = [
+    ['filho da puta','f1lh0 d4 put💋'],['filha da puta','f1lh4 d4 put💋'],
+    ['vai se foder','v41 s3 f🔥d3r'],['casa do caralho','c4s4 d0 c4r4lh🔥'],
+    ['fdp','f💩p'],['vsf','v💩f'],['pqp','p💩p'],['tnc','t💩c'],
+    ['puta','put💋'],['caralho','c4r4lh🍆'],['merda','m3rd💩'],
+    ['buceta','buc3t🐱'],['cu','c🍑'],['viado','v14d🌈0'],
+    ['fuck','f🔥ck'],['shit','sh💩t'],['bitch','b💋tch'],
+  ];
+
+  function removerLinks(texto) {
+    return texto
+      .replace(/https?:\/\/[^\s]*/gi, '🔗[link removido]')
+      .replace(/www\.[^\s]*/gi, '🔗[link removido]')
+      .replace(/[^\s]+\.(com|net|org|br|io|co|me|tv|info|biz|xyz|app|site|online|club|shop|link)[^\s]*/gi, '🔗[link removido]');
+  }
+
+  function verificarLinks(texto) {
+    return /https?:\/\/[^\s]+/i.test(texto) ||
+      /www\.[^\s]+/i.test(texto) ||
+      /[^\s]+\.(com|net|org|br|io|co|me|tv|info|biz|xyz|app|site|online|club|shop|link)[^\s]*/i.test(texto);
+  }
+
+  function censurar(texto) {
+    var resultado = texto;
+    CENSURA.forEach(function(par) {
+      try {
+        var regex = new RegExp(par[0], 'gi');
+        resultado = resultado.replace(regex, par[1]);
+      } catch(e) {}
+    });
+    return resultado;
+  }
+
   function moderateFile(file) {
     return new Promise(function(resolve) {
       var fd = new FormData();
@@ -295,500 +363,26 @@
     });
   }
 
-  // ── CENSURA COMPLETA COM EMOJIS ──
-  var CENSURA = [
-    ['filho da puta','f1lh0 d4 put💋'],['filha da puta','f1lh4 d4 put💋'],
-    ['vai se foder','v41 s3 f🔥d3r'],['casa do caralho','c4s4 d0 c4r4lh🔥'],
-    ['aidética','41d3t🤢c4'],['aidético','41d3t🤢c0'],
-    ['aleijada','4l31j🦽d4'],['aleijado','4l31j🦽d0'],
-    ['analfabeta','4n4lf4b🤡t4'],['analfabeto','4n4lf4b🤡t0'],
-    ['anus','4n🍑s'],['arrombadas','4rr0mb💥d4s'],['arrombada','4rr0mb💥d4'],['arrombado','4rr0mb💥d0'],
-    ['babaca','b4b4c🤡'],['bacurinha','b4cur🐒nh4'],['bacura','b4cur🐒4'],
-    ['baitola','b41t0l🌈'],['bichona','b1ch0n🌈'],['bicha','b1ch🌈'],['bisca','b1sc💋'],['bixa','b1x🌈'],
-    ['boceta','b0c3t🐱'],['boiola','b010l🌈'],['bolcinha','b0lc1nh🍆'],['bolsinha','b0ls1nh🍆'],
-    ['boqueteira','b0qu3t31r💋'],['boqueteiro','b0qu3t31r🍆'],['boquetera','b0qu3t3r💋'],['boquetero','b0qu3t3r🍆'],
-    ['boquetes','b0qu3t🍆s'],['boquete','b0qu3t🍆'],
-    ['bosseta','b0ss3t🐱'],['bostana','b0st💩n4'],['bosta','b0st💩'],
-    ['brecheca','br3ch3c🐱'],['brecha','br3ch🐱'],['brioco','br10c🍆'],['bronha','br0nh🍆'],
-    ['bucefula','buc3ful🐱'],['bucetao','buc3t🐱0'],['bucetão','buc3t🐱0'],['bucetas','buc3t🐱s'],
-    ['bucetasso','buc3t🐱ss0'],['bucetinha','buc3t1nh🐱'],['bucetinhas','buc3t1nh🐱s'],
-    ['bucetonas','buc3t0n🐱s'],['buceta','buc3t🐱'],['buca','buc🐱'],['busseta','buss3t🐱'],
-    ['bundudas','bund💥d4s'],['bunduda','bund💥d4'],['bundas','bund🍑s'],['bunda','bund🍑'],
-    ['burra','burr🤡'],['burro','burr🤡0'],
-    ['cacete','c4c3t🍆'],['cachorra','c4ch0rr🐶'],['cachorro','c4ch0rr🐶0'],['cachuleta','c4chul3t💀'],['cadela','c4d3l🐶'],
-    ['cagalhao','c4g4lh💩0'],['cagao','c4g💩0'],['cagão','c4g💩0'],['cagona','c4g💩n4'],['cagado','c4g💩d0'],['caga','c4g💩'],
-    ['canalha','c4n4lh💀'],['caralha','c4r4lh💥'],['caralhudo','c4r4lhud🍆'],['caralho','c4r4lh🍆'],
-    ['casseta','c4ss3t🐱'],['cassete','c4ss3t🐱'],
-    ['cequelada','c3qu3l4d💀'],['cequelado','c3qu3l4d💀0'],
-    ['chalerinha','ch4l3r1nh💀'],['chatico','ch4t1c🤡'],['chavasca','ch4v4sc💋'],
-    ['checheca','ch3ch3c🐱'],['chereca','ch3r3c🐱'],['chibio','ch1b10🍆'],
-    ['chibumba','ch1bumb🍑'],['chibumbo','ch1bumb🍆'],['chifruda','ch1frud🦷'],['chifrudo','ch1frud🦷0'],
-    ['chimbica','ch1mb1c🍆'],['chochota','ch0ch0t🐱'],['chota','ch0t🐱'],
-    ['chupada','chup4d💋'],['chupado','chup4d🍆'],['chupador','chup4d0r🍆'],['chupadora','chup4d0r💋'],
-    ['chupando','chup4nd🍆'],['chupetinha','chup3t1nh🍆'],['chupeta','chup3t🍆'],['chupou','chup0u💋'],
-    ['clitoris','cl1t0r🐱s'],['clitóris','cl1t0r🐱s'],
-    ['cocaina','c0c4❄n4'],['cocaína','c0c4❄n4'],['coco','c0c💩'],
-    ['cornagem','c0rn4g3m🦷'],['cornão','c0rn🦷0'],['cornisse','c0rn1ss🦷'],
-    ['corna','c0rn🦷'],['cornuda','c0rn🦷d4'],['cornudo','c0rn🦷d0'],['corno','c0rn🦷'],
-    ['crack','cr4💊k'],['cretina','cr3t1n🤡'],['cretino','cr3t1n🤡0'],['crioulo','cr10ul🐒'],
-    ['culhao','culh💀0'],['culhão','culh💀0'],['curalho','cur4lh🍆'],
-    ['custozinha','cust0z1nh🍑'],['cuzao','cuz🍑0'],['cuzão','cuz🍑0'],
-    ['cuzinho','cuz1nh🍑'],['cuzinhos','cuz1nh🍑s'],['cuzuda','cuz🍑d4'],['cuzudo','cuz🍑d0'],
-    ['cú','c🍑'],['cu','c🍑'],
-    ['dadeira','d4d31r💋'],['debil','d3b1l🤡'],['débil','d3b1l🤡'],
-    ['debiloide','d3b1l01d🤡'],['debilóide','d3b1l01d🤡'],['deficiente','d3f1c13nt🤡'],
-    ['defunto','d3funt💀'],['demonio','d3m0n🔥'],['demônio','d3m0n🔥'],
-    ['detento','d3t3nt💀'],['doida','d01d🤡'],['doido','d01d🤡0'],
-    ['egua','3gu🐴'],['égua','3gu🐴'],
-    ['enrabadas','3nr4b4d🍑s'],['encoxada','3nc0x4d💥'],
-    ['escrota','3scr0t💩'],['escroto','3scr0t💩'],
-    ['esporrada','3sp0rr4d💦'],['esporrado','3sp0rr4d💦0'],['esporro','3sp0rr💦'],
-    ['estupida','3stup1d🤡'],['estúpida','3stup1d🤡'],['estupidez','3stup1d3z🤡'],
-    ['estupido','3stup1d🤡0'],['estúpido','3stup1d🤡0'],['estupro','3stupr😡0'],['estuprar','3stupr😡r'],
-    ['fascista','f4sc☠st4'],['facista','f4c1st☠'],
-    ['fodao','f0d🔥0'],['fodão','f0d🔥0'],['fode','f0d🔥'],
-    ['fodida','f0d🔥d4'],['fodido','f0d🔥d0'],['foda','f0d🔥'],
-    ['fornica','f0rn🔥c4'],['fudeção','fud3c🔥0'],['fudendo','fud3nd🔥'],
-    ['fudida','fud🔥d4'],['fudido','fud🔥d0'],
-    ['furada','fur4d🍆'],['furado','fur4d🍆0'],['furnica','furn🍆c4'],['furnicar','furn1c4r🍆'],
-    ['furo','fur🍑'],['furona','fur0n🍑'],['furão','fur🍑0'],
-    ['gay','g🌈y'],['gonorrea','g0n0rr3🤢4'],['gonorreia','g0n0rr31🤢'],
-    ['gosmenta','g0sm3nt🤢'],['gosmento','g0sm3nt🤢0'],
-    ['gozadas','g0z4d💦s'],['gozada','g0z4d💦'],['gozar','g0z4r💦'],['gozo','g0z💦0'],
-    ['grelo','gr3l🐱'],['grelinho','gr3l1nh🐱'],
-    ['hemorroida','h3m0rr💩1d4'],['hemorróida','h3m0rr💩1d4'],
-    ['heroina','h3r0💉n4'],['heroína','h3r0💉n4'],
-    ['hitler','h1tl☠r'],['homossexual','h0m0ss3xu🌈l'],['homo-sexual','h0m0-s3xu🌈l'],
-    ['idiota','1d10t🤡'],['idiotice','1d10t1c🤡'],['imbecil','1mb3c1l🤡'],['inculto','1ncult🤡'],
-    ['iscrota','1scr0t💩'],['iscroto','1scr0t💩0'],['japa','j4p🤡'],['jihad','j1h💣d'],
-    ['ladra','l4dr💀'],['ladrao','l4dr💀0'],['ladrão','l4dr💀0'],['ladroeira','l4dr03r💀'],['ladrona','l4dr0n💀'],
-    ['lazarento','l4z4r3nt🤢'],['leprosa','l3pr0s🤢'],['leproso','l3pr0s🤢0'],
-    ['lesbica','l3sb🌈c4'],['lésbica','l3sb🌈c4'],
-    ['louco','l0uc🤡'],
-    ['macaca','m4c4c🐒'],['macaco','m4c4c🐒0'],['machona','m4ch0n💀'],['machorra','m4ch0rr💀'],
-    ['maconha','m4c0nh🌿'],['malandro','m4l4ndr💀'],['maluco','m4luc🤡'],
-    ['masturba','m4sturb🍆'],['meleca','m3l3c💩'],['melequinha','m3l3qu1nh💩'],
-    ['meliante','m3l14nt💀'],['merdao','m3rd💩0'],['merda','m3rd💩'],
-    ['meretriz','m3r3tr1z💋'],['metendo','m3t3nd🍆'],
-    ['mija','m1j💧'],['mijada','m1j4d💧'],['mijado','m1j4d💧0'],['mijo','m1j💧0'],
-    ['mocrea','m0cr34💀'],['mocreia','m0cr314💀'],['mocréia','m0cr314💀'],
-    ['moleca','m0l3c🤡'],['moleque','m0l3qu🤡'],
-    ['mondronga','m0ndr0ng💀'],['mondrongo','m0ndr0ng💀0'],['mongol','m0ng🤡l'],
-    ['mongoloide','m0ng0l01d🤡'],['mongolóide','m0ng0l01d🤡'],
-    ['mulata','mul4t🐒'],['mulato','mul4t🐒0'],
-    ['nadega','n4d3g🍑'],['nádega','n4d3g🍑'],['naba','n4b🍑'],
-    ['nazismo','n4z☠sm0'],['nazista','n4z☠st4'],['nazi','n4z☠'],
-    ['negro','n3gr✊'],['nhaca','nh4c🤢'],
-    ['nojeira','n0j31r🤢'],['nojenta','n0j3nt🤢'],['nojento','n0j3nt🤢0'],['nojo','n0j🤢'],
-    ['olhota','0lh0t🍑'],['otaria','0t4r🤡'],['otária','0t4r🤡'],['otario','0t4r🤡0'],['otário','0t4r🤡0'],
-    ['paca','p4c🤡'],['palhaço','p4lh4c🤡'],['palhaco','p4lh4c🤡'],
-    ['paspalha','p4sp4lh🤡'],['paspalhao','p4sp4lh🤡0'],['paspalho','p4sp4lh🤡0'],
-    ['pau','p4u🍆'],['peia','p31🤢'],['peidao','p31d💨0'],['peidorreiro','p31d0rr31r💨'],['peido','p31d💨'],
-    ['pemba','p3mb🍆'],['pentelha','p3nt3lh🐱'],['pentelho','p3nt3lh🍆'],
-    ['pechereca','p3ch3r3c🐱'],['perereca','p3r3r3c🐱'],['perneta','p3rn3t🦽'],['peru','p3r🍆'],['periquita','p3r1qu1t🐱'],
-    ['picao','p1c🍆0'],['picão','p1c🍆0'],['pica','p1c🍆'],
-    ['pilantra','p1l4ntr💀'],['pinel','p1n3l🤡'],['pintão','p1nt🍆0'],['pintudo','p1ntud🍆'],['pinto','p1nt🍆'],
-    ['piranhuda','p1r4nhud💀'],['piranha','p1r4nh💀'],
-    ['piriguetes','p1r1gu3t🍑s'],['pirocao','p1r0c🍆0'],['pirocas','p1r0c🍆s'],['pirocudo','p1r0cud🍆'],['piroca','p1r0c🍆'],['piroco','p1r0c🍆'],
-    ['piru','p1r🍆'],['pivete','p1v3t💀'],['pixota','p1x0t🐱'],['pombinha','p0mb1nh🐱'],
-    ['pedofilia','p3d0f🚨l14'],['pedofilo','p3d0f🚨l0'],['pedófilo','p3d0f🚨l0'],
-    ['pornografia','p0rn0gr4f🔞'],['porno','p0rn🔞'],
-    ['porra','p0rr💦'],['prostibulo','pr0st1bul💋'],['prostíbulo','pr0st1bul💋'],
-    ['prostituta','pr0st1tut💋'],['prostituto','pr0st1tut💋0'],
-    ['punhetao','punh3t🍆0'],['punhetão','punh3t🍆0'],['punheteiro','punh3t31r🍆'],['punheta','punh3t🍆'],
-    ['putaria','put4r🔥'],['putas','put💋s'],['putinha','put1nh💋'],['puta','put💋'],['puto','put💋0'],
-    ['puxa-saco','pux4-s4c🤡'],['puxasaco','pux4s4c🤡'],['pus','pu💩'],['pustula','pust💩l4'],
-    ['quenga','qu3ng💋'],
-    ['rabao','r4b🍑0'],['rabuda','r4bud🍑'],['rabudao','r4bud🍑0'],['rabudo','r4bud🍑0'],['rabudona','r4bud🍑n4'],['rabo','r4b🍑'],
-    ['racha','r4ch🐱'],['rachada','r4ch4d🐱'],['rachadao','r4ch4d🐱0'],['rachadinha','r4ch4d1nh🐱'],['rachadinho','r4ch4d1nh🐱0'],['rachado','r4ch4d🐱0'],
-    ['ramela','r4m3l💩'],['remela','r3m3l💩'],['rameira','r4m31r💋'],['rapariga','r4p4r1g💋'],
-    ['retardada','r3t4rd4d🤡'],['retardado','r3t4rd4d🤡0'],['ridícula','r1d1cul🤡'],
-    ['roceiro','r0c31r🤡'],['rolinha','r0l1nh🍆'],['rola','r0l🍆'],['rosca','r0sc🍑'],
-    ['sacana','s4c4n💀'],['safadas','s4f4d💋s'],['safada','s4f4d💋'],['safados','s4f4d💋0s'],['safado','s4f4d💋0'],
-    ['sapatao','s4p4t🌈0'],['sapatão','s4p4t🌈0'],
-    ['sequelada','s3qu3l4d💀'],['sifilis','s1f1l🤢s'],['sífilis','s1f1l🤢s'],
-    ['siririca','s1r1r1c🐱'],['sirica','s1r1c🐱'],
-    ['suicidio','su1c1d💀0'],['suicídio','su1c1d💀0'],
-    ['surubas','surub🔥s'],['suruba','surub🔥'],
-    ['tarada','t4r4d🤡'],['tarado','t4r4d🤡0'],
-    ['tesudas','t3sud🔥s'],['tesuda','t3sud🔥'],['tesudo','t3sud🔥0'],
-    ['tezao','t3z🔥0'],['tezuda','t3zud🔥'],['tezudo','t3zud🔥0'],
-    ['terrorismo','t3rr0r💣sm0'],['terrorista','t3rr0r💣st4'],
-    ['travecas','tr4v3c🌈s'],['traveca','tr4v3c🌈'],['travecos','tr4v3c🌈0s'],['traveco','tr4v3c🌈0'],['travesti','tr4v3st🌈'],
-    ['trepadas','tr3p4d🔥s'],['trepada','tr3p4d🔥'],
-    ['trocha','tr0ch💀'],['trolha','tr0lh💀'],['troucha','tr0uch💀'],['trouxa','tr0ux🤡'],['troxa','tr0x🤡'],
-    ['tuberculoso','tub3rcul0s🤢'],
-    ['vaca','v4c🐄'],['vadia','v4d💋'],
-    ['vagabunda','v4g4bund💋'],['vagabundo','v4g4bund💋0'],
-    ['vagina','v4g1n🐱'],['vaginismo','v4g1n1sm🐱'],
-    ['veada','v34d🌈'],['veadao','v34d🌈0'],['veado','v34d🌈0'],
-    ['viadagem','v14d4g3m🌈'],['viada','v14d🌈'],['viadao','v14d🌈0'],['viadão','v14d🌈0'],
-    ['viadinho','v14d1nh🌈'],['viado','v14d🌈0'],['víado','v14d🌈0'],
-    ['xana','x4n🐱'],['xaninha','x4n1nh🐱'],['xabasca','x4b4sc💋'],
-    ['xatico','x4t1c🤡'],['xavasca','x4v4sc💋'],['xebreca','x3br3c🐱'],
-    ['xereca','x3r3c🐱'],['xerereca','x3r3r3c🐱'],['xexeca','x3x3c🐱'],
-    ['xibio','x1b10🍆'],['xibiu','x1b1u🍆'],['xibumba','x1bumb🍑'],
-    ['xochota','x0ch0t🐱'],['xoroca','x0r0c🐱'],['xotinha','x0t1nh🐱'],['xota','x0t🐱'],
-    ['xoxotas','x0x0t🐱s'],['xoxotinha','x0x0t1nh🐱'],['xoxota','x0x0t🐱'],
-    ['xulipa','xul1p🐱'],['xumbrega','xumbr3g💀'],['xupaxota','xup4x0t🐱'],
-    ['xupetinha','xup3t1nh🍆'],['xupeta','xup3t🍆'],
-    ['droga','dr0g💊'],['drogas','dr0g💊s'],['matar','m4t4r🔫'],['assassinar','4ss4ss1n4r🔫'],
-    ['fdp','f💩p'],['vsf','v💩f'],['pqp','p💩p'],['tnc','t💩c'],
-    ['fuck','f🔥ck'],['shit','sh💩t'],['bitch','b💋tch'],
-    ['nigger','n🐒gg3r'],['dick','d🍆ck'],['pussy','puss🐱'],
-    ['whore','wh💋r3'],['bastard','b4st💀rd'],['motherfucker','m0th3rf🔥ck3r'],
-    ['borboleta','b0rb0l3t🐱'],
-    ['brasileirinhas','br4s1l31r1nh🔞s'],
-    ['caixa dos prazeres','c41x4 d0s pr4z3r🐱s'],
-    ['caixeta adorada','c41x3t4 4d0r4d🐱'],
-    ['caixinha de ouro','c41x1nh4 d3 0ur🐱'],
-    ['carai de asa','c4r41 d3 4s🍆'],
-    ['crista de galo','cr1st4 d3 g4l🍆'],
-    ['crossdresser','cr0ssd r3ss3r🌈'],
-    ['cuecao','cu3c🍑0'],
-    ['de programa','d3 pr0gr4m💋'],
-    ['deposito de porra','d3p0s1t0 d3 p0rr💦'],
-    ['desgraca de macho','d3sgr4c4 d3 m4ch💀'],
-    ['encantada','3nc4nt4d💋'],
-    ['engole-espada','3ng0l3-3sp4d🍆'],
-    ['escova molhadinha','3sc0v4 m0lh4d1nh🐱'],
-    ['furustreca','furus tr3c🐱'],
-    ['garagem da frente','g4r4g3m d4 fr3nt🐱'],
-    ['gostozudas','g0st0zud🔥s'],
-    ['greludas','gr3lud🐱s'],
-    ['gulosinha','gul0s1nh🐱'],
-    ['katchanga','k4tch4ng🍆'],
-    ['labios de femea','l4b10s d3 f3m3🐱'],
-    ['largo do bilau','l4rg0 d0 b1l4🍆'],
-    ['lesbofetiche','l3sb0f3t1ch🌈'],
-    ['lixa-pica','l1x4-p1c🍆'],
-    ['mede-rola','m3d3-r0l🍆'],
-    ['meio de vida','m310 d3 v1d💋'],
-    ['mela-pentelho','m3l4-p3nt3lh🐱'],
-    ['menages','m3n4g3🔥s'],
-    ['menage','m3n4g🔥'],
-    ['ninho de rola','n1nh0 d3 r0l🍆'],
-    ['papa-duro','p4p4-dur🍆'],
-    ['pausudas','p4usud🍆s'],
-    ['peitos','p31t🍑s'],
-    ['peituda','p31tud🍑'],
-    ['peitudas','p31tud🍑s'],
-    ['pitbitoca','p1tb1t0c🐱'],
-    ['pitchbicha','p1tchb1ch🌈'],
-    ['pitchbitoca','p1tchb1t0c🐱'],
-    ['pithbicha','p1thb1ch🌈'],
-    ['pithbitoca','p1thb1t0c🐱'],
-    ['pitibicha','p1t1b1ch🌈'],
-    ['pitrica','p1tr1c🐱'],
-    ['porteira do caralho','p0rt31r4 d0 c4r4lh🍆'],
-    ['prencheca','pr3nch3c🐱'],
-    ['prexeca','pr3x3c🐱'],
-    ['priquita','pr1qu1t🐱'],
-    ['priquito','pr1qu1t🍆'],
-    ['quebra-pinto','qu3br4-p1nt🍆'],
-    ['saca-rola','s4c4-r0l🍆'],
-    ['sequelada','s3qu3l4d💀'],
-    ['sexboys','s3xb0ys🔞'],
-    ['sexgatas','s3xg4t🔞s'],
-    ['sotravesti','s0tr4v3st🌈'],
-    ['suga pinto','sug4 p1nt🍆'],
-    ['taioba','t410b🐱'],
-    ['tchaca','tch4c🐱'],
-    ['tcheca','tch3c🐱'],
-    ['tchonga','tch0ng🐱'],
-    ['tchuchuca','tchuchuc🐱'],
-    ['tchutchuca','tchutchuc🐱'],
-    ['tetinha','t3t1nh🍑'],
-    ['tgatas','tg4t🔞s'],
-    ['t-girls','t-g1rls🌈'],
-    ['tobinha','t0b1nh🍆'],
-    ['tomas turbando','t0m4s turb4nd🔥'],
-    ['tomba-macho','t0mb4-m4ch🍆'],
-    ['topsexy','t0ps3xy🔞'],
-    ['transa','tr4ns🔥'],
-    ['transando','tr4ns4nd🔥'],
-    ['vacilao','v4c1l🤡0'],
-    ['vadjaina','v4dj41n🐱'],
-    ['vajoca','v4j0c🐱'],
-    ['veiaca','v314c🤡'],
-    ['veiaco','v314c🤡0'],
-    ['bacanal','b4c4n4l🔥'],
-    ['boazuda','b04zud🍑'],
-    ['boco','b0c💩'],
-    ['bolagato','b0l4g4t💀'],
-    ['bolcat','b0lc4t💀'],
-    ['buraco da serpente','bur4c0 d4 s3rp3nt🍆'],
-    ['buraco no meio da floresta','bur4c0 n0 m310 d4 fl0r3st🍑'],
-    ['buttman','buttm4n🍑'],
-    ['cabaca','c4b4c🤡'],
-    ['cabeluda','c4b3lud🐱'],
-    ['cabeludo','c4b3lud🍆'],
-    ['caboquinho','c4b0qu1nh🍆'],
-    ['cadacer','c4d4c3r💀'],
-    ['cadastrada','c4d4str4d💩'],
-    ['cadastrado','c4d4str4d💩0'],
-    ['cadaver','c4d4v3r💀'],
-    ['calcinha','c4lc1nh🐱'],
-    ['calcinhas','c4lc1nh🐱s'],
-    ['caminho da felicidade','c4m1nh0 d4 f3l1c1d4d🐱'],
-    ['campo alagado','c4mp0 4l4g4d💦'],
-    ['capo de fusca','c4p0 d3 fusc🐱'],
-    ['carne vaginosa','c4rn3 v4g1n0s🐱'],
-    ['casseta','c4ss3t🐱'],
-    ['caverna misteriosa','c4v3rn4 m1st3r10s🐱'],
-    ['ciclana','c1cl4n💋'],
-    ['ciclano','c1cl4n🍆'],
-    ['cocota','c0c0t🐱'],
-    ['cona','c0n🐱'],
-    ['concha','c0nch🐱'],
-    ['debil','d3b1l🤡'],
-    ['debiloide','d3b1l01d🤡'],
-    ['eretil','3r3t1l🍆'],
-    ['erosguide','3r0sgu1d🔞'],
-    ['erosmania','3r0sm4n1🔞'],
-    ['erotic','3r0t1c🔞'],
-    ['erotica','3r0t1c🔞'],
-    ['eroticas','3r0t1c🔞s'],
-    ['erotico','3r0t1c🔞0'],
-    ['eroticos','3r0t1c🔞0s'],
-    ['erotika','3r0t1k🔞'],
-    ['erotismo','3r0t1sm🔞'],
-    ['escort','3sc0rt💋'],
-    ['escorts','3sc0rts💋'],
-    ['esfiha','3sf1h🤡'],
-    ['excitantes','3xc1t4nt3s🔥'],
-    ['fedida','f3d1d🤢'],
-    ['fedido','f3d1d🤢0'],
-    ['fedor','f3d0r🤢'],
-    ['fedorenta','f3d0r3nt🤢'],
-    ['feia','f31🤢'],
-    ['feio','f310🤢'],
-    ['feiosa','f3i0s🤢'],
-    ['feioso','f3i0s🤢0'],
-    ['feioza','f3i0z🤢'],
-    ['feiozo','f3i0z🤢0'],
-    ['felacao','f3l4c🍆0'],
-    ['fenda','f3nd🐱'],
-    ['fodidafodido','f0d1d4f0d1d🔥'],
-    ['fudecao','fud3c🔥0'],
-    ['gosma','g0sm💩'],
-    ['gaiata','g414t💋'],
-    ['gaiato','g414t🍆'],
-    ['lalau','l4l4u💀'],
-    ['manguaca','m4ngu4c🤡'],
-    ['prega','pr3g🐱'],
-    ['testuda','t3stud🔥'],
-    ['abestado','4b3st4d🤡'],
-    ['aborto','4b0rt💀'],
-    ['bacanal','b4c4n4l🔥'],
-    ['fornicada','f0rn1c4d🔥'],
-    // Violência e agressão
-    ['espancar','3sp4nc4r👊'],['espancamento','3sp4nc4m3nt👊'],
-    ['bater','b4t3r👊'],['pancada','p4nc4d👊'],['surra','surr👊'],
-    ['soco','s0c👊'],['socar','s0c4r👊'],['murro','murr👊'],
-    ['chute','chut👟'],['chutar','chut4r👟'],
-    ['matar','m4t4r🔫'],['mato','m4t🔫'],['mata','m4t🔫'],
-    ['matar','m4t4r🔫'],['matei','m4t31🔫'],['matou','m4t0u🔫'],
-    ['morre','m0rr💀'],['morrer','m0rr3r💀'],['morte','m0rt💀'],
-    ['morto','m0rt💀0'],['morta','m0rt💀'],
-    ['morro','m0rr💀'],['morrendo','m0rr3nd💀'],
-    ['assassino','4ss4ss1n🔫0'],['assassinar','4ss4ss1n4r🔫'],
-    ['assassinato','4ss4ss1n4t💀'],['homicidio','h0m1c1d🔫0'],
-    ['homicídio','h0m1c1d🔫0'],['femicidio','f3m1c1d🔫0'],
-    ['feminicidio','f3m1n1c1d🔫0'],['feminicídio','f3m1n1c1d🔫0'],
-    ['estupro','3stupr😡0'],['estuprar','3stupr😡r'],
-    ['estuprado','3stupr4d😡0'],['estuprada','3stupr4d😡'],
-    ['estuprados','3stupr4d😡0s'],['estupradas','3stupr4d😡s'],
-    ['estrupado','3strup4d😡0'],['estrupada','3strup4d😡'],
-    ['estrupro','3strupr😡0'],['estrupo','3strup😡0'],
-    ['estuprador','3stupr4d0r😡'],['estupradora','3stupr4d0r😡'],['estupradores','3stupr4d0r3s😡'],
-    ['abusar','4bus4r😡'],['abuso','4bus😡'],['abusador','4bus4d0r😡'],
-    ['torturar','t0rtur4r😡'],['tortura','t0rtur😡'],
-    ['ameacar','4m34c4r⚠️'],['ameaça','4m34c⚠️'],['ameaca','4m34c⚠️'],
-    ['ameaçar','4m34c4r⚠️'],['ameacas','4m34c⚠️s'],
-    ['machucar','m4chuc4r🩹'],['machucar','m4chuc4r🩹'],
-    ['ferir','f3r1r🩹'],['ferimento','f3r1m3nt🩹'],
-    ['sangrar','s4ngr4r🩸'],['sangue','s4ngu🩸'],
-    ['faca','f4c🔪'],['facada','f4c4d🔪'],['esfaquear','3sf4qu34r🔪'],
-    ['tiro','t1r🔫'],['atirar','4t1r4r🔫'],['bala','b4l🔫'],
-    ['arma','4rm🔫'],['armas','4rm🔫s'],['pistola','p1st0l🔫'],
-    ['revolver','r3v0lv3r🔫'],['revólver','r3v0lv3r🔫'],
-    ['bomba','b0mb💣'],['explodir','3xpl0d1r💣'],['explosao','3xpl0s💣0'],
-    ['explosão','3xpl0s💣0'],['dinamite','d1n4m1t💣'],
-    ['odeio','0d310😡'],['odeiar','0d314r😡'],['odio','0d10😡'],
-    ['ódio','0d10😡'],['raiva','r41v😡'],['rancor','r4nc0r😡'],
-    ['violencia','v10l3nc😡'],['violência','v10l3nc😡'],
-    ['violento','v10l3nt😡'],['violenta','v10l3nt😡'],
-    ['agredir','4gr3d1r👊'],['agressao','4gr3ss👊0'],['agressão','4gr3ss👊0'],
-    ['agressor','4gr3ss0r👊'],['agressora','4gr3ss0r👊'],
-    ['linchar','l1nch4r👊'],['linchamento','l1nch4m3nt👊'],
-    ['enforcar','3nf0rc4r💀'],['enforco','3nf0rc💀'],
-    ['afogamento','4f0g4m3nt💀'],['afogar','4f0g4r💀'],
-    ['sequestro','s3qu3str💀'],['sequestrar','s3qu3str4r💀'],
-    ['roubar','r0ub4r💀'],['roubo','r0ub💀'],['ladrão','l4dr💀0'],
-    ['estrangular','3str4ngul4r💀'],['sufocar','suf0c4r💀'],
-
-    // Violência e agressão
-    ['espancar','3sp4nc4r👊'],['espancamento','3sp4nc4m3nt👊'],['espancado','3sp4nc4d👊'],
-    ['bater','b4t3r👊'],['pancada','p4nc4d👊'],['soco','s0c👊'],['socos','s0c👊s'],
-    ['chute','chut👊'],['chutes','chut👊s'],['chutar','chut4r👊'],
-    ['surrar','surr4r👊'],['surra','surr👊'],['surras','surr👊s'],
-    ['agredir','4gr3d1r👊'],['agressao','4gr3ss👊0'],['agressão','4gr3ss👊0'],
-    ['violencia','v10l3nc1👊'],['violência','v10l3nc1👊'],
-    ['ameaca','4m34c💀'],['ameaça','4m34c💀'],['ameacar','4m34c4r💀'],['ameaças','4m34c💀s'],
-    ['matarei','m4t4r31🔫'],['te mato','t3 m4t🔫'],['vou te matar','v0u t3 m4t4r🔫'],
-    ['sequestrar','s3qu3str4r💀'],['sequestro','s3qu3str💀'],
-    ['torturar','t0rtur4r😡'],['tortura','t0rtur😡'],
-    ['estrupro','3strupr😡'],['estrupo','3strup😡'],
-    ['odeio voce','0d310 v0c3😡'],['te odeio','t3 0d310😡'],['odeio','0d310😡'],
-    ['racismo','r4c1sm✊'],['racista','r4c1st✊'],['preconceito','pr3c0nc31t✊'],
-    ['discriminacao','d1scr1m1n4c✊0'],['discriminação','d1scr1m1n4c✊0'],
-    ['genocidio','g3n0c1d1💀0'],['genocídio','g3n0c1d1💀0'],
-    ['linchar','l1nch4r💀'],['linchamento','l1nch4m3nt💀'],
-    ['enforcar','3nf0rc4r💀'],['enforcamento','3nf0rc4m3nt💀'],
-    ['degolar','d3g0l4r💀'],['degolamento','d3g0l4m3nt💀'],
-    ['mutilar','mut1l4r💀'],['mutilacao','mut1l4c💀0'],['mutilação','mut1l4c💀0'],
-    ['bomba','b0mb💣'],['explodir','3xpl0d1r💣'],['explosao','3xpl0s💣0'],['explosão','3xpl0s💣0'],
-    ['revolver','r3v0lv3r🔫'],['pistola','p1st0l🔫'],
-    ['faca','f4c🔪'],['facada','f4c4d🔪'],['esfaquear','3sf4qu34r🔪'],
-    ['kill','k1ll💀'],['murder','murd3r💀'],['rape','r4p3😡'],['attack','4tt4ck👊'],
-    ['violence','v10l3nc3👊'],['threat','thr34t💀'],['stab','st4b🔪'],['shoot','sh00t🔫'],
-  ];
-
-  function removerLinks(texto) {
-    // Remove URLs (http, https, www, .com, .br, etc)
-    return texto
-      .replace(/https?:\/\/[^\s]*/gi, '🔗[link removido]')
-      .replace(/www\.[^\s]*/gi, '🔗[link removido]')
-      .replace(/[^\s]+\.(com|net|org|br|io|co|me|tv|info|biz|xyz|app|site|online|club|shop|link)[^\s]*/gi, '🔗[link removido]')
-      .replace(/bit\.ly\/[^\s]*/gi, '🔗[link removido]')
-      .replace(/t\.me\/[^\s]*/gi, '🔗[link removido]')
-      .replace(/discord\.gg\/[^\s]*/gi, '🔗[link removido]')
-      .replace(/wa\.me\/[^\s]*/gi, '🔗[link removido]');
-  }
-
-  function verificarLinks(texto) {
-    var temLink = /https?:\/\/[^\s]+/i.test(texto) ||
-      /www\.[^\s]+/i.test(texto) ||
-      /[^\s]+\.(com|net|org|br|io|co|me|tv|info|biz|xyz|app|site|online|club|shop|link)[^\s]*/i.test(texto) ||
-      /bit\.ly\/[^\s]+/i.test(texto) ||
-      /t\.me\/[^\s]+/i.test(texto) ||
-      /discord\.gg\/[^\s]+/i.test(texto) ||
-      /wa\.me\/[^\s]+/i.test(texto);
-    return temLink;
-  }
-
-  function normalizarTexto(texto) {
-    // Remove letras repetidas (bucetaaaa -> buceta)
-    var semRepetidas = texto.replace(/(.)\1{2,}/gi, '$1$1');
-    // Remove traços, pontos e underscores entre letras (b-u-c-e-t-a -> buceta)
-    var semTracas = semRepetidas.replace(/([a-zA-ZÀ-ú])[-_.]([a-zA-ZÀ-ú])/g, '$1$2');
-    // Remove espaços entre letras individuais (b u c e t a -> buceta)
-    var semEspacos = semTracas.replace(/\b([a-zA-ZÀ-ú]) (?=[a-zA-ZÀ-ú] )/g, '$1');
-    // Leetspeak reverso (3->e, 4->a, 0->o, 1->i, @->a, $->s)
-    var semLeet = semEspacos
-      .replace(/3/g, 'e')
-      .replace(/4/g, 'a')
-      .replace(/0/g, 'o')
-      .replace(/1/g, 'i')
-      .replace(/@/g, 'a')
-      .replace(/\$/g, 's')
-      .replace(/5/g, 's')
-      .replace(/7/g, 't')
-      .replace(/9/g, 'g')
-      .replace(/8/g, 'b');
-    return semLeet;
-  }
-
-  function censurar(texto) {
-    // Normaliza o texto pra capturar leet-speak (arrombad0, estuprad0, etc)
-    var textoNormal = normalizarTexto(texto);
-    CENSURA.forEach(function(par) {
-      try {
-        var regex = new RegExp(par[0], 'gi');
-        textoNormal = textoNormal.replace(regex, par[1]);
-      } catch(e) {}
-    });
-    return textoNormal;
-  }
-
-  // Emojis genéricos por posição da letra
-  var EMOJI_GENERICOS = ['🔥','💩','🤡','💀','🚫','⚡','💥','🌈','🍆','🐱','🍑','💋'];
-
-  function emojiGenerico(palavra, posicao) {
-    var idx = (palavra.charCodeAt(0) + posicao) % EMOJI_GENERICOS.length;
-    return EMOJI_GENERICOS[idx];
-  }
-
-  function censurarPalavraDesconhecida(palavra) {
-    if (palavra.length <= 2) return palavra;
-    var meio = Math.floor(palavra.length / 2);
-    var emoji = emojiGenerico(palavra, meio);
-    return palavra.substring(0, meio) + emoji + palavra.substring(meio + 1);
-  }
-
-  function censurarComPurgo(textoOriginal, textoCensurado) {
-    return fetch('https://www.purgomalum.com/service/json?text=' + encodeURIComponent(textoOriginal))
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        if (!data.result) return textoCensurado;
-        var purgoResult = data.result;
-        // Encontra palavras que o purgo censurou (tem ***) comparando com original
-        var palavrasOriginais = textoOriginal.split(/\s+/);
-        var palavrasPurgo = purgoResult.split(/\s+/);
-        var resultado = textoCensurado;
-        palavrasOriginais.forEach(function(palavra, i) {
-          var palavraLimpa = palavra.replace(/[^a-zA-Z]/g, '').toLowerCase();
-          var purgoWord = (palavrasPurgo[i] || '').toLowerCase();
-          // Se o purgo censurou essa palavra (tem asterisco) e nossa lista nao censurou
-          if (purgoWord.indexOf('*') !== -1 && palavraLimpa.length > 2) {
-            // Verifica se nossa lista ja censurou
-            var jaCensurou = false;
-            CENSURA.forEach(function(par) {
-              if (par[0].toLowerCase() === palavraLimpa) jaCensurou = true;
-            });
-            if (!jaCensurou) {
-              // Censura com emoji no estilo da lista
-              var censurada = censurarPalavraDesconhecida(palavra);
-              var regex = new RegExp('\\b' + palavra.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi');
-              resultado = resultado.replace(regex, censurada);
-            }
-          }
-        });
-        return resultado;
-      })
-      .catch(function() { return textoCensurado; });
-  }
-
-    // PUBLICAR
   function publish() {
     var text = document.getElementById('postText').value.trim();
     if (!text && !selectedFile) {
       showToast('✍️ Escreva algo ou adicione uma foto/vídeo!', '');
       return;
     }
-
-    var textoCensurado = censurar(text || '');
-    var btn = document.getElementById('postBtn');
-
-    // Verifica se tem link
     if (verificarLinks(text)) {
       alert('🔗 Links não são permitidos!\n\nColoque um espaço no link para compartilhar.\nEx: "face book.com" ou "youtu be.com"');
       return;
     }
-
+    var textoCensurado = censurar(text || '');
+    var fullText = textoCensurado + SITE_LINK;
+    var btn = document.getElementById('postBtn');
     btn.disabled = true;
     btn.textContent = '🔍 Verificando...';
     setProgress(10);
 
-    // Passa pelo PurgoMalum pra pegar palavras que nossa lista não conhece
-    censurarComPurgo(text || '', textoCensurado).then(function(textoFinal) {
-      var fullText = textoFinal + SITE_LINK;
-
     function doPost() {
       btn.textContent = 'Publicando...';
       setProgress(50);
-
       var promise;
       if (selectedFile && selectedFile.type.indexOf('image') === 0) {
         var fd = new FormData();
@@ -809,11 +403,10 @@
           body: JSON.stringify({ message: fullText, access_token: PAGE_TOKEN })
         }).then(function(r) { return r.json(); });
       }
-
       promise.then(function(data) {
         if (data.id || data.post_id) {
           setProgress(100);
-          showToast('✅ Publicado no Facebook!', 'success');
+          showToast('✅ Publicado! Vídeos aparecem no YouTube em até 15 min ▶️', 'success');
           closeModal();
           setTimeout(function() { if (window.FB) FB.XFBML.parse(); }, 2000);
         } else {
@@ -845,10 +438,8 @@
     } else {
       doPost();
     }
-    }); // fecha censurarComPurgo
   }
 
-  // Botão publicar - múltiplos eventos para compatibilidade mobile
   var postBtn = document.getElementById('postBtn');
   postBtn.addEventListener('click', publish);
   postBtn.addEventListener('touchstart', function(e) { e.preventDefault(); publish(); }, { passive: false });
