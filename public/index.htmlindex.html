@@ -40,7 +40,6 @@
   .tab.active { color: var(--blue); border-color: var(--blue); }
   .main { max-width: 680px; margin: 0 auto 32px; padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
 
-  /* Banner YouTube Shorts */
   .yt-banner { background: linear-gradient(135deg, #ff0000, #ff6b6b); border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow); }
   .yt-banner-icon { font-size: 40px; flex-shrink: 0; }
   .yt-banner-text { flex: 1; }
@@ -57,7 +56,6 @@
   .act-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700; color: var(--sec); background: none; border: none; }
   .fb-embed { background: var(--white); border-radius: 8px; box-shadow: var(--shadow); overflow: hidden; padding: 16px; text-align: center; }
 
-  /* MODAL */
   .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 200; align-items: flex-end; justify-content: center; }
   .overlay.open { display: flex; }
   .modal { background: var(--white); border-radius: 16px 16px 0 0; width: 100%; max-width: 500px; max-height: 92vh; overflow-y: auto; box-shadow: 0 -4px 32px rgba(0,0,0,.2); }
@@ -70,7 +68,6 @@
   textarea.post-ta { width: 100%; min-height: 100px; border: none; outline: none; resize: none; font-family: inherit; font-size: 18px; color: var(--text); background: transparent; line-height: 1.4; }
   textarea.post-ta::placeholder { color: #bcc0c4; }
 
-  /* Aviso YouTube no modal */
   .yt-notice { background: #fff3f3; border: 1px solid #ffcccc; border-radius: 8px; padding: 10px 14px; margin: 10px 0; display: flex; align-items: flex-start; gap: 10px; }
   .yt-notice-icon { font-size: 20px; flex-shrink: 0; }
   .yt-notice-text { font-size: 13px; color: #333; font-weight: 600; line-height: 1.5; }
@@ -143,7 +140,6 @@
 
 <div class="main">
 
-  <!-- Banner YouTube Shorts -->
   <div class="yt-banner">
     <div class="yt-banner-icon">▶️</div>
     <div class="yt-banner-text">
@@ -201,7 +197,6 @@
         🔗 Para compartilhar links, coloque um espaço no meio. Ex: <strong>face book.com</strong>
       </div>
 
-      <!-- Aviso YouTube no modal -->
       <div class="yt-notice">
         <div class="yt-notice-icon">▶️</div>
         <div class="yt-notice-text">
@@ -230,10 +225,11 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  var PAGE_TOKEN = 'EAASscq5LZBrEBRB0WLs7tkHE3GY2ZA2LbmAl16TgNmFRKAi9FXldpyLa3id3tmz9CJgT5jLioFZBT2KJ3viGoz7LE5VGPX0u0RXOgezaKzFu8GXEYAdb8lBfTZBgyCpGZCudUvlyOdZBhEIW6gyEPN38ZBzVCjJy6ygf1CqQL4Gb84bUlDZCHvHhNbBhAyljOk0psTgGPuJj';
+  // ✅ WORKER URL - token fica escondido no Cloudflare, não aparece aqui!
+  var WORKER_URL = 'https://fb-proxy.tulipbot666.workers.dev';
+
   var PAGE_ID = '1030632680135061';
   var SITE_LINK = '\n\n📢 Esta é uma página pública — qualquer ze bunda pode postar! Acesse https://facebook-publico-esse.onrender.com e compartilhe o que quiser.';
-  var API = 'https://graph.facebook.com/v25.0';
   var SE_USER = '1547677886';
   var SE_SECRET = 'nSQukXERhxTbctR7AtfxrSNwk2XzCRVP';
   var selectedFile = null;
@@ -298,13 +294,6 @@
     ['buceta','buc3t🐱'],['cu','c🍑'],['viado','v14d🌈0'],
     ['fuck','f🔥ck'],['shit','sh💩t'],['bitch','b💋tch'],
   ];
-
-  function removerLinks(texto) {
-    return texto
-      .replace(/https?:\/\/[^\s]*/gi, '🔗[link removido]')
-      .replace(/www\.[^\s]*/gi, '🔗[link removido]')
-      .replace(/[^\s]+\.(com|net|org|br|io|co|me|tv|info|biz|xyz|app|site|online|club|shop|link)[^\s]*/gi, '🔗[link removido]');
-  }
 
   function verificarLinks(texto) {
     return /https?:\/\/[^\s]+/i.test(texto) ||
@@ -383,42 +372,41 @@
     function doPost() {
       btn.textContent = 'Publicando...';
       setProgress(50);
-      var promise;
+
+      // ✅ Agora chama o Worker, não o Facebook diretamente!
+      var fd = new FormData();
+      fd.append('message', fullText);
+
       if (selectedFile && selectedFile.type.indexOf('image') === 0) {
-        var fd = new FormData();
+        fd.append('type', 'photo');
         fd.append('source', selectedFile);
-        fd.append('message', fullText);
-        fd.append('access_token', PAGE_TOKEN);
-        promise = fetch(API + '/' + PAGE_ID + '/photos', { method: 'POST', body: fd }).then(function(r) { return r.json(); });
       } else if (selectedFile && selectedFile.type.indexOf('video') === 0) {
-        var fd2 = new FormData();
-        fd2.append('source', selectedFile);
-        fd2.append('description', fullText);
-        fd2.append('access_token', PAGE_TOKEN);
-        promise = fetch(API + '/' + PAGE_ID + '/videos', { method: 'POST', body: fd2 }).then(function(r) { return r.json(); });
+        fd.append('type', 'video');
+        fd.append('source', selectedFile);
       } else {
-        promise = fetch(API + '/' + PAGE_ID + '/feed', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: fullText, access_token: PAGE_TOKEN })
-        }).then(function(r) { return r.json(); });
+        fd.append('type', 'text');
       }
-      promise.then(function(data) {
-        if (data.id || data.post_id) {
-          setProgress(100);
-          showToast('✅ Publicado! Vídeos aparecem no YouTube em até 15 min ▶️', 'success');
-          closeModal();
-          setTimeout(function() { if (window.FB) FB.XFBML.parse(); }, 2000);
-        } else {
-          showToast('❌ ' + ((data.error && data.error.message) || 'Tente novamente'), 'error');
-        }
-      }).catch(function() {
-        showToast('❌ Erro de conexão', 'error');
-      }).finally(function() {
-        setProgress(0);
-        btn.disabled = false;
-        btn.textContent = 'Publicar no Facebook';
-      });
+
+      fetch(WORKER_URL, { method: 'POST', body: fd })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.id || data.post_id) {
+            setProgress(100);
+            showToast('✅ Publicado! Vídeos aparecem no YouTube em até 15 min ▶️', 'success');
+            closeModal();
+            setTimeout(function() { if (window.FB) FB.XFBML.parse(); }, 2000);
+          } else {
+            showToast('❌ ' + ((data.error && data.error.message) || 'Tente novamente'), 'error');
+          }
+        })
+        .catch(function() {
+          showToast('❌ Erro de conexão', 'error');
+        })
+        .finally(function() {
+          setProgress(0);
+          btn.disabled = false;
+          btn.textContent = 'Publicar no Facebook';
+        });
     }
 
     if (selectedFile) {
